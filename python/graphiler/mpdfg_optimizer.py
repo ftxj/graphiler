@@ -9,6 +9,11 @@ def optimizer(mpdfg, opt_level):
         split(mpdfg)
         reorder(mpdfg)
         return
+    if opt_level == -3:
+        split(mpdfg)
+        reorder(mpdfg)
+        fusion(mpdfg)
+        return
     if opt_level == 0:
         return
     if opt_level > 0:
