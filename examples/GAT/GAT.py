@@ -37,8 +37,8 @@ def reduce_func(nodes: NodeBatchDummy):
 
 
 mpdfg = mpdfg_builder(message_func, reduce_func, -1)
-mpdfg_compile = mpdfg_builder(message_func, reduce_func, opt_level=0)
-mpdfg_plus_reorder = mpdfg_builder(message_func, reduce_func, opt_level=1)
+#mpdfg_compile = mpdfg_builder(message_func, reduce_func, opt_level=0)
+#mpdfg_plus_reorder = mpdfg_builder(message_func, reduce_func, opt_level=1)
 
 
 class GATLayer(nn.Module):
@@ -57,15 +57,15 @@ class GATLayer(nn.Module):
     def forward(self, g, feature, compile=False):
         g.ndata['h'] = feature
         if compile:
-            if BREAK_FLAG == 0:
-                update_all(g, mpdfg_compile, msg_params=(
-                    self.fc_weight, self.attn_weight))
-            elif BREAK_FLAG == 1:
-                update_all(g, mpdfg_plus_reorder, msg_params=(
-                    self.fc_weight, self.attn_weight))
-            else:
-                update_all(g, mpdfg, msg_params=(
-                    self.fc_weight, self.attn_weight))
+            # if BREAK_FLAG == 0:
+            #     update_all(g, mpdfg_compile, msg_params=(
+            #         self.fc_weight, self.attn_weight))
+            # elif BREAK_FLAG == 1:
+            #     update_all(g, mpdfg_plus_reorder, msg_params=(
+            #         self.fc_weight, self.attn_weight))
+            # else:
+            update_all(g, mpdfg, msg_params=(
+                self.fc_weight, self.attn_weight))
         else:
             g.update_all(self.message_func, reduce_func)
         return g.ndata.pop('h')
