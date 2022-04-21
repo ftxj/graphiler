@@ -165,6 +165,7 @@ def breakdown(dataset, feat_dim, repeat=1000):
 
 
 if __name__ == '__main__':
+    print("GAT Test Begin")
     repeat = int(os.environ.get('REPEAT', 50))
     if len(sys.argv) != 3:
         print("usage: python GAT.py [dataset] [feat_dim]")
