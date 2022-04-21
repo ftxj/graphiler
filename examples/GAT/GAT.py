@@ -37,7 +37,7 @@ def reduce_func(nodes: NodeBatchDummy):
     return {'h': h}
 
 
-mpdfg = mpdfg_builder(message_func, reduce_func, -1)
+mpdfg = mpdfg_builder(message_func, reduce_func, opt_level=-1)
 #mpdfg_compile = mpdfg_builder(message_func, reduce_func, opt_level=0)
 #mpdfg_plus_reorder = mpdfg_builder(message_func, reduce_func, opt_level=1)
 
