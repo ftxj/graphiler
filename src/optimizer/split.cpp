@@ -30,6 +30,6 @@ void split(std::shared_ptr<MPDFGAnnotation> &mpdfg) {
   torch::jit::SubgraphRewriter rewriter;
   rewriter.RegisterRewritePattern(concat_mul, split_mul_sum);
   rewriter.runOnGraph(mpdfg->DFG);
-  dedup(mpdfg->DFG);
+  // dedup(mpdfg->DFG);
 }
 } // namespace graphiler
