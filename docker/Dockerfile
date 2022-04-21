@@ -28,8 +28,8 @@ RUN pip install torch==1.8.2+cu111 -f https://download.pytorch.org/whl/lts/1.8/t
 
 # git clone and build graphiler
 # avoid docker from caching the git repo
-ADD https://api.github.com/repos/xiezhq-hermann/graphiler/git/refs/heads/main version.json
-RUN git clone -b main https://github.com/xiezhq-hermann/graphiler.git /root/graphiler
+ADD https://api.github.com/repos/ftxj/graphiler/git/refs/heads/main version.json
+RUN git clone -b main https://github.com/ftxj/graphiler.git /root/graphiler
 WORKDIR /root/graphiler
 RUN mkdir -p /root/.dgl
 RUN mkdir build \
