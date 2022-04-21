@@ -13,7 +13,7 @@ from graphiler.utils import load_data, setup, check_equal, bench, homo_dataset, 
 from GAT_DGL import GAT_DGL
 from GAT_PyG import GAT_PyG
 
-print("GAT Test Begin")
+print("GAT Test Begin Split & Reorder")
 
 device = setup()
 

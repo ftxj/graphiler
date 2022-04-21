@@ -105,6 +105,6 @@ void reorder(std::shared_ptr<MPDFGAnnotation> &mpdfg) {
   }
 
   rewriter.runOnGraph(mpdfg->DFG);
-  dedup(mpdfg->DFG);
+  // dedup(mpdfg->DFG);
 }
 } // namespace graphiler
