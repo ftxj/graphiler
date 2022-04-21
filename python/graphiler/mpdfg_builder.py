@@ -69,8 +69,12 @@ def mpdfg_builder(msg_func, reduce_func, update_func=None, opt_level=2):
     print("UDF update function:\n", update_func)
 
     builder(mpdfg.annotations, msg_func, reduce_func, update_func)
-    print(mpdfg.annotations)
+    
+    print("Before Optimization")
+    print(mpdfg.forward.graph)
+
     optimizer(mpdfg.annotations, opt_level)
+
     print("MPDFG:\n", mpdfg.forward.graph)
 
     return mpdfg

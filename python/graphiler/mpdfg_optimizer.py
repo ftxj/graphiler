@@ -2,6 +2,13 @@ from graphiler.mpdfg import split, reorder, fusion
 
 
 def optimizer(mpdfg, opt_level):
+    if opt_level == -1:
+       split(mpdfg)
+       return
+    if opt_level == -2:
+        split(mpdfg)
+        reorder(mpdfg)
+        return
     if opt_level == 0:
         return
     if opt_level > 0:
