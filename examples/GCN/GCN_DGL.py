@@ -15,7 +15,7 @@ class GCN_DGL(nn.Module):
         self.layer2 = GraphConv(hidden_dim, out_dim, norm='right',
                                 allow_zero_in_degree=True, activation=torch.relu)
 
-    def forward(self, g, features):
+    def forward(self, g : DGLGraph, features):
         x = F.relu(self.layer1(g, features))
         x = self.layer2(g, x)
         return x
