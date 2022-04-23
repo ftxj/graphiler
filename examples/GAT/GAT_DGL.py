@@ -3,6 +3,8 @@ import torch.nn.functional as F
 
 from dgl.nn.pytorch.conv import GATConv
 
+from graphiler.utils import load_data, setup, check_equal, bench, homo_dataset, DEFAULT_DIM, init_log, empty_cache
+
 
 class GAT_DGL(nn.Module):
     def __init__(self, in_dim, hidden_dim, out_dim):
@@ -17,3 +19,19 @@ class GAT_DGL(nn.Module):
         h = F.elu(h)
         h = self.layer2(g, h)
         return h
+
+
+
+device = setup()
+
+feat_dim = 500
+hidden_dim = 32
+out_dim = 12
+
+net_dgl = GAT_DGL(in_dim=feat_dim, hidden_dim=DEFAULT_DIM, out_dim=DEFAULT_DIM).to(device)
+
+
+print("DGL Graph")
+print(torch.jit.script(net_dgl).graph)
+print("DGL Inlined Graph")
+print(torch.jit.script(net_dgl).inlined_graph)

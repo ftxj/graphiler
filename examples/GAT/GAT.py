@@ -126,10 +126,6 @@ def profile(dataset, feat_dim, repeat=1000):
         g = g.to(device)
         net_dgl = GAT_DGL(in_dim=feat_dim, hidden_dim=DEFAULT_DIM,
                           out_dim=DEFAULT_DIM).to(device)
-        print("DGL Graph")
-        print(torch.jit.script(net_dgl).graph)
-        print("DGL Inlined Graph")
-        print(torch.jit.script(net_dgl).inlined_graph)
         net_dgl.eval()
         with torch.no_grad():
             bench(net=net_dgl, net_params=(g, features),
