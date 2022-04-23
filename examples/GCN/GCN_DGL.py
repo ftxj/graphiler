@@ -27,10 +27,11 @@ feat_dim = 500
 hidden_dim = 32
 out_dim = 12
 
-net_dgl = GCN_DGL(in_dim=feat_dim, hidden_dim=DEFAULT_DIM, out_dim=DEFAULT_DIM).to(device)
+net_dgl = GCN_DGL(in_dim=feat_dim, hidden_dim=hidden_dim, out_dim=out_dim).to(device)
 
+script_model = torch.jit.script(net_dgl)
 
 print("DGL Graph")
-print(torch.jit.script(net_dgl).graph)
+print(script_model.graph)
 print("DGL Inlined Graph")
-print(torch.jit.script(net_dgl).inlined_graph)
+print(script_model.inlined_graph)
