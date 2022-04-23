@@ -13,7 +13,7 @@ from graphiler.utils import load_data, setup, check_equal, bench, homo_dataset, 
 from GAT_DGL import GAT_DGL
 from GAT_PyG import GAT_PyG
 
-print("GAT Test Begin Split & Reorder")
+print("GAT example test")
 
 device = setup()
 
@@ -37,7 +37,7 @@ def reduce_func(nodes: NodeBatchDummy):
     return {'h': h}
 
 
-mpdfg = mpdfg_builder(message_func, reduce_func, opt_level=-3)
+mpdfg = mpdfg_builder(message_func, reduce_func, opt_level=-3   )
 #mpdfg_compile = mpdfg_builder(message_func, reduce_func, opt_level=0)
 #mpdfg_plus_reorder = mpdfg_builder(message_func, reduce_func, opt_level=1)
 
