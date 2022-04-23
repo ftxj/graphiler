@@ -2,7 +2,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from torch_geometric.nn import GCNConv
-
+import torch
 
 from graphiler.utils import setup
 
