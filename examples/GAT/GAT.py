@@ -126,9 +126,12 @@ def profile(dataset, feat_dim, repeat=1000):
         g = g.to(device)
         net_dgl = GAT_DGL(in_dim=feat_dim, hidden_dim=DEFAULT_DIM,
                           out_dim=DEFAULT_DIM).to(device)
+        print("DGL Graph")
+        print(torch.jit.script(net_dgl).graph)
+        print("DGL Inlined Graph")
+        print(torch.jit.script(net_dgl).inlined_graph)
         net_dgl.eval()
         with torch.no_grad():
-            print(torch.jit.trace(net_dgl, (g, features)).inlined_graph)
             bench(net=net_dgl, net_params=(g, features),
                   tag="1-DGL-primitives", nvprof=False, repeat=repeat, memory=True, log=log)
         del g, net_dgl
