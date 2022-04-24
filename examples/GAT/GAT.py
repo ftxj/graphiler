@@ -92,6 +92,7 @@ def profile(dataset, feat_dim, repeat=1000):
     g, features = load_data(dataset, feat_dim, prepare=False)
     print(g)
     print(type(g))
+    print(vars(g))
     features = features.to(device)
 
     @empty_cache
@@ -100,6 +101,9 @@ def profile(dataset, feat_dim, repeat=1000):
         print(g)
         print(type(g))
         print(vars(g))
+        
+        print(type(g.DGLGraph))
+        print(vars(g.DGLGraph))
         g = g.to(device)
         net = GAT(in_dim=feat_dim, hidden_dim=DEFAULT_DIM,
                   out_dim=DEFAULT_DIM).to(device)
