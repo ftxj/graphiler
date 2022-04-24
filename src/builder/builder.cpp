@@ -115,8 +115,10 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
     // map inputs in original functions to MP-DFG
     std::vector<Value *> new_inputs;
     std::vector<Residency> new_inputs_residency;
+
+    std::cout << "Old Input\n";
     for (auto i : n->inputs()) {
-      std::cout << "Node Input: " << i->debugName() << std::endl;
+      std::cout << "Input: " << i->debugName() << std::endl;
       assert(VALUE_MAP.find(i->unique()) != VALUE_MAP.end());
       new_inputs.push_back(VALUE_MAP[i->unique()]);
       new_inputs_residency.push_back(
@@ -169,20 +171,35 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
       }
     }
 
+    std::cout << "New Input\n";
+    for(auto i : new_inputs) {
+      std::cout << "Input: " << i->debugName() << std::endl;
+    }
     // copy nodes from original functions to MP-DFG
     auto new_node =
         mpdfg->DFG->create(n->kind(), new_inputs, n->outputs().size());
+    // FTXJ, create a node with spec input and spec output number.
     new_node->copyAttributes(*n);
     new_node->insertBefore(mpdfg_final_node);
+
+    std::cout << "Old Outputs\n";
     for (size_t o = 0; o < n->outputs().size(); o++) {
+      std::cout << "Output: " << o->debugName() << std::endl;
       new_node->outputs()[o]->copyMetadata(n->outputs()[o]);
       VALUE_MAP[n->outputs()[o]->unique()] = new_node->outputs()[o];
+    }
+
+    std::cout << "New Outputs\n";
+    for (size_t o = 0; o < new_node->outputs().size(); o++) {
+      std::cout << "Output: " << o->debugName() << std::endl;
     }
     // default movement types of operators
     mpdfg->data_movement[new_node] = Movement::Dense;
 
     // operator specific semantics
     auto first_output_id = new_node->outputs()[0]->unique();
+  
+
     if (n_kind == std::string("aten::__getitem__")) {
       auto v_id = n->inputs()[0]->unique();
       if (VALUE_TO_BROADCAST.find(v_id) != VALUE_TO_BROADCAST.end()) {
