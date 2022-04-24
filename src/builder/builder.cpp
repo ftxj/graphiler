@@ -49,7 +49,15 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
   auto dglgraph = mpdfg_params[0];
   auto mpdfg_block = mpdfg->DFG->block();
   auto in_final_node = in_block->nodes().end()->input()->node();
+
+  
   auto mpdfg_final_node = mpdfg_block->nodes().end()->input()->node();
+
+  std::cout << "mpdfg_block: ";
+  mpdfg_block.dump();
+
+  std::cout << "mpdfg_block final node: ";
+  mpdfg_final_node.dump();
 
   for (auto n : in_block->nodes()) {
     std::cout << "\nNode: ";
@@ -116,6 +124,7 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
     }
 
     if ((stage == Stage::Creation) && (n == in_final_node)) {
+      std::cout << "Node is Msg Final Node" << std::endl;
       // construct mailbox in the message creation stage
       assert(new_inputs.size() % 2 == 0);
       assert(n_kind == std::string("prim::DictConstruct"));
