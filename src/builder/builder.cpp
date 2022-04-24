@@ -52,9 +52,11 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
   auto mpdfg_final_node = mpdfg_block->nodes().end()->input()->node();
 
   for (auto n : in_block->nodes()) {
+    std::cout << "Node";
     n->dump();
 
     std::string n_kind = n->kind().toQualString();
+    std::cout << "Node Kine = " << n_kind << std::endl;
 
     // Todo: modularize different parts of the function
 
@@ -105,6 +107,7 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
     std::vector<Value *> new_inputs;
     std::vector<Residency> new_inputs_residency;
     for (auto i : n->inputs()) {
+      std::cout << "Node Input: " << i->debugName() << std::endl;
       assert(VALUE_MAP.find(i->unique()) != VALUE_MAP.end());
       new_inputs.push_back(VALUE_MAP[i->unique()]);
       new_inputs_residency.push_back(
