@@ -297,7 +297,7 @@ void MPDFGBuilder(std::shared_ptr<MPDFGAnnotation> &mpdfg,
 
   Inline(*(mpdfg->DFG));
   
-  mpdfg->DFG->dump();
+  mpdfg->DFG->print(std::cout);
 
   Inline(*msg_graph);
   Inline(*reduce_graph);
