@@ -23,6 +23,7 @@ hetero_dataset = []
 
 
 def load_data(name, feat_dim=DEFAULT_DIM, prepare=True, to_homo=True):
+    print("begin load data")
     if name == "arxiv":
         dataset = DglNodePropPredDataset(name="ogbn-arxiv")
         g = dataset[0][0]

@@ -90,6 +90,9 @@ def profile(dataset, feat_dim, repeat=1000):
                     "3-Graphiler"], ["time", "mem"])
     print("benchmarking on: " + dataset)
     g, features = load_data(dataset, feat_dim, prepare=False)
+    print(g)
+    print(type(g))
+    exit()
     features = features.to(device)
 
     @empty_cache
