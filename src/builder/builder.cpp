@@ -399,7 +399,7 @@ void MPDFGBuilder(std::shared_ptr<MPDFGAnnotation> &mpdfg,
 
   std::cout << "VALUE Map Before parse:" << std::endl;
   for(auto i : VALUE_MAP) {
-    std::cout << i->first << ", " << i->second->debugName();
+    std::cout << i.first << ", " << i.second->debugName();
   }
 
   if (update_graph.has_value()) {
