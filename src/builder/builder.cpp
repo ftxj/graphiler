@@ -56,7 +56,7 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
     n->dump();
 
     std::string n_kind = n->kind().toQualString();
-    std::cout << "Node Kine = " << n_kind << std::endl;
+    std::cout << "Node Kind = " << n_kind << std::endl;
 
     // Todo: modularize different parts of the function
 
@@ -66,6 +66,7 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
         (n->hasAttributeS("name"))) {
       auto output_id = n->output()->unique();
       std::string attr_name = n->s(attr::name);
+
       if (attr_name == "_src_data") {
         VALUE_MAP[output_id] = mpdfg_params[1];
         VALUE_TO_BROADCAST[output_id] = Movement::BroadcastSrc;
@@ -322,6 +323,10 @@ void MPDFGBuilder(std::shared_ptr<MPDFGAnnotation> &mpdfg,
 
   size_t num_msg_params = msg_params.size();
   size_t num_reduce_params = reduce_params.size();
+
+  for(auto i = 0; i < mpdfg_params.size(); ++i) {
+    std::cout << mpdfg_params[i]->debugName() << std::endl;
+  }
 
   std::cout << "test!!!!!!" << std::endl;
   std::cout << mpdfg_params[1]->debugName() << std::endl;
