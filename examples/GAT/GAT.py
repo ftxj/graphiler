@@ -93,6 +93,7 @@ def profile(dataset, feat_dim, repeat=1000):
     print(g)
     print(type(g))
     print(vars(g))
+    g.DGLGraph = torch.ones(10)
     print(type(g.DGLGraph))
     exit()
     features = features.to(device)
