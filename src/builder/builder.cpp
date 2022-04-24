@@ -191,7 +191,7 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
 
     std::cout << "New Outputs\n";
     for (size_t o = 0; o < new_node->outputs().size(); o++) {
-      std::cout << "Output: " << o->debugName() << std::endl;
+      std::cout << "Output: " << new_node->outputs()[o]->debugName() << std::endl;
     }
     // default movement types of operators
     mpdfg->data_movement[new_node] = Movement::Dense;
