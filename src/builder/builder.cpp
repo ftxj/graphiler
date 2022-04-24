@@ -330,12 +330,16 @@ void MPDFGBuilder(std::shared_ptr<MPDFGAnnotation> &mpdfg,
                 at::optional<std::shared_ptr<Graph>> update_graph) {
 
   Inline(*(mpdfg->DFG));
-  
-  std::cout << "begin builder cpp" << std::endl;
+  std::cout << "Before Buildre MP-DFG:" << std::endl;
   mpdfg->DFG->print(std::cout);
 
   Inline(*msg_graph);
+  std::cout << "Before Buildre Msg-DFG:" << std::endl;
+  msg_graph->print(std::cout);
+  
   Inline(*reduce_graph);
+  std::cout << "Before Buildre Reduce-DFG:" << std::endl;
+  reduce_graph->print(std::cout);
 
   // Todo: control flow
   auto mpdfg_block = mpdfg->DFG->block();
@@ -349,16 +353,21 @@ void MPDFGBuilder(std::shared_ptr<MPDFGAnnotation> &mpdfg,
 
   size_t num_msg_params = msg_params.size();
   size_t num_reduce_params = reduce_params.size();
-
+  
+  std::cout << "mpdfg_params:" << std::endl;
   for(auto i = 0; i < mpdfg_params.size(); ++i) {
-    std::cout << mpdfg_params[i]->debugName() << std::endl;
+    std::cout << mpdfg_params[i]->unique() << ", " << mpdfg_params[i]->debugName() << std::endl;
   }
 
-  std::cout << "test!!!!!!" << std::endl;
-  std::cout << mpdfg_params[1]->debugName() << std::endl;
-  std::cout << mpdfg_params[2]->debugName() << std::endl;
-  std::cout << mpdfg_params[3]->debugName() << std::endl;
-  std::cout << mpdfg_params[4]->debugName() << std::endl;
+  std::cout << "msg_params:" << std::endl;
+  for(auto i = 0; i < msg_params.size(); ++i) {
+    std::cout << msg_params[i]->unique() << ", " << msg_params[i]->debugName() << std::endl;
+  }
+  
+  std::cout << "reduce_params:" << std::endl;
+  for(auto i = 0; i < reduce_params.size(); ++i) {
+    std::cout << reduce_params[i]->unique() << ", " << reduce_params[i]->debugName() << std::endl;
+  }
 
   mpdfg->data_residency[mpdfg_params[1]->unique()] = Residency::Node;
   mpdfg->data_residency[mpdfg_params[2]->unique()] = Residency::Edge;
