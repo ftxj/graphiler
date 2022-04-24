@@ -41,6 +41,8 @@ def load_data(name, feat_dim=DEFAULT_DIM, prepare=True, to_homo=True):
     elif name == "pubmed":
         dataset = dgl.data.PubmedGraphDataset()
         g = dataset[0]
+        print(g)
+        print(type(g))
     elif name == "debug":
         g = dgl.graph(([0, 0, 0, 1, 1, 2], [0, 1, 2, 1, 2, 2]))
     elif name == 'aifb':
