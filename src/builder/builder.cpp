@@ -1,5 +1,5 @@
 #include "builder.h"
-
+#include <iostream>
 static bool UPDATE_UDF = false;
 
 namespace graphiler {
@@ -314,6 +314,12 @@ void MPDFGBuilder(std::shared_ptr<MPDFGAnnotation> &mpdfg,
 
   size_t num_msg_params = msg_params.size();
   size_t num_reduce_params = reduce_params.size();
+
+  
+  std::cout << mpdfg_params[1]->debugName() << std::endl;
+  std::cout << mpdfg_params[2]->debugName() << std::endl;
+  std::cout << mpdfg_params[3]->debugName() << std::endl;
+  std::cout << mpdfg_params[4]->debugName() << std::endl;
 
   mpdfg->data_residency[mpdfg_params[1]->unique()] = Residency::Node;
   mpdfg->data_residency[mpdfg_params[2]->unique()] = Residency::Edge;
