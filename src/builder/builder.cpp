@@ -1,5 +1,6 @@
 #include "builder.h"
 #include <iostream>
+#include <vector>
 static bool UPDATE_UDF = false;
 
 namespace graphiler {
@@ -49,10 +50,10 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
   auto mpdfg_block = mpdfg->DFG->block();
   auto in_final_node = in_block->nodes().end()->input()->node();
   auto mpdfg_final_node = mpdfg_block->nodes().end()->input()->node();
-  
+
   for (auto n : in_block->nodes()) {
-    
-    n->print(std::cout);
+    std::vector<const Node*> v;
+    n->print(std::cout, 10, &v);
 
     std::string n_kind = n->kind().toQualString();
 
