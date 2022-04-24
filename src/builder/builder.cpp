@@ -297,6 +297,10 @@ void MPDFGBuilder(std::shared_ptr<MPDFGAnnotation> &mpdfg,
 
   Inline(*(mpdfg->DFG));
   
+  std::cout << "begin builder cpp" << std::endl;
+  
+  std::cout << mpdfg->DFG->toString() << std::endl;
+
   mpdfg->DFG->print(std::cout);
 
   Inline(*msg_graph);
