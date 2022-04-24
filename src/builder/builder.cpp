@@ -44,12 +44,16 @@ operator_lowering(const std::string &n_kind,
 void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
                  c10::ArrayRef<Value *> mpdfg_params, Block *in_block,
                  Stage stage) {
+  std::cout << "Begin Parse" << std::endl;
   auto dglgraph = mpdfg_params[0];
   auto mpdfg_block = mpdfg->DFG->block();
   auto in_final_node = in_block->nodes().end()->input()->node();
   auto mpdfg_final_node = mpdfg_block->nodes().end()->input()->node();
-
+  
   for (auto n : in_block->nodes()) {
+    
+    n->print(std::cout);
+
     std::string n_kind = n->kind().toQualString();
 
     // Todo: modularize different parts of the function
@@ -298,9 +302,6 @@ void MPDFGBuilder(std::shared_ptr<MPDFGAnnotation> &mpdfg,
   Inline(*(mpdfg->DFG));
   
   std::cout << "begin builder cpp" << std::endl;
-  
-  std::cout << mpdfg->DFG->toString() << std::endl;
-
   mpdfg->DFG->print(std::cout);
 
   Inline(*msg_graph);
