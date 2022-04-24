@@ -22,16 +22,16 @@ class GAT_DGL(nn.Module):
 
 
 
-device = setup()
+# device = setup()
 
-feat_dim = 500
-hidden_dim = 32
-out_dim = 12
+# feat_dim = 500
+# hidden_dim = 32
+# out_dim = 12
 
-net_dgl = GAT_DGL(in_dim=feat_dim, hidden_dim=DEFAULT_DIM, out_dim=DEFAULT_DIM).to(device)
+# net_dgl = GAT_DGL(in_dim=feat_dim, hidden_dim=DEFAULT_DIM, out_dim=DEFAULT_DIM).to(device)
 
 
-print("DGL Graph")
-print(torch.jit.script(net_dgl).graph)
-print("DGL Inlined Graph")
-print(torch.jit.script(net_dgl).inlined_graph)
+# print("DGL Graph")
+# print(torch.jit.script(net_dgl).graph)
+# print("DGL Inlined Graph")
+# print(torch.jit.script(net_dgl).inlined_graph)
