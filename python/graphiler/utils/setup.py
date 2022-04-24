@@ -148,8 +148,10 @@ def prepare_graph(g, ntype=None):
     message_node_pointer = torch.IntTensor(message_node_pointer).cuda()
 
     g.DGLGraph = torch.classes.my_classes.DGLGraph(
-        reduce_node_pointer, reduce_node_index, reduce_edge_index, message_node_pointer, message_node_index, message_edge_index, Coosrc, Coodst, None, None)
-    
+        reduce_node_pointer, reduce_node_index, reduce_edge_index, 
+        message_node_pointer, message_node_index, message_edge_index,
+        Coosrc, Coodst, None, None)
+
     return g
 
 

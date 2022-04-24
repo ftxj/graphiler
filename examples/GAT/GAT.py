@@ -90,23 +90,12 @@ def profile(dataset, feat_dim, repeat=1000):
                     "3-Graphiler"], ["time", "mem"])
     print("benchmarking on: " + dataset)
     g, features = load_data(dataset, feat_dim, prepare=False)
-    print(g)
-    print(type(g))
-    print(vars(g))
-    g.DGLGraph = torch.ones(10)
-    print(type(g.DGLGraph))
-    exit()
     features = features.to(device)
 
     @empty_cache
     def run_baseline_graphiler(g, features):
         g, _ = load_data(dataset, feat_dim, prepare=True)
-        print(g)
-        print(type(g))
-        print(vars(g))
-        
         print(type(g.DGLGraph))
-        print(vars(g.DGLGraph))
         g = g.to(device)
         net = GAT(in_dim=feat_dim, hidden_dim=DEFAULT_DIM,
                   out_dim=DEFAULT_DIM).to(device)

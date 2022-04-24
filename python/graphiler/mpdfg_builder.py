@@ -34,7 +34,7 @@ class MPDFG():
 
 def mpdfg_builder(msg_func, reduce_func, update_func=None, opt_level=2):
     extra_params = []
-
+    print("mpdfg_builder")
     def get_params(func, stage):
         for param in inspect.signature(func).parameters.values():
             if param.annotation in [EdgeBatchDummy, NodeBatchDummy]:
