@@ -25,6 +25,17 @@ def mpdfg_func(dglgraph: torch.classes.my_classes.DGLGraph,
     return {'h':torch.tensor(0)}
 '''
 
+# def mpdfg_func(
+#     dglgraph: torch.classes.my_classes.DGLGraph,
+#     ndata: Dict[str, torch.Tensor], 
+#     edata: Dict[str, torch.Tensor],
+#     ntypedata: Dict[str, torch.Tensor], 
+#     etypedata: Dict[str, torch.Tensor], 
+#     fc_weight_msg,
+#     attn_weight_msg
+#     ):
+#     return {'h':torch.tensor(0)}
+
 
 class MPDFG():
     def __init__(self, func) -> None:
@@ -56,6 +67,9 @@ def mpdfg_builder(msg_func, reduce_func, update_func=None, opt_level=2):
     import mpdfg_temp
     reload(mpdfg_temp)
     mpdfg_func = torch.jit.script(mpdfg_temp.mpdfg_func)
+
+    print(mpdfg_func.code)
+
     mpdfg = MPDFG(mpdfg_func)
 
     # Todo: inline or not inline?

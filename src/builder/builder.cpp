@@ -184,7 +184,7 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
 
     std::cout << "Old Outputs\n";
     for (size_t o = 0; o < n->outputs().size(); o++) {
-      std::cout << "Output: " << new_node->outputs()[o]->debugName() << std::endl;
+      std::cout << "Output: " << n->outputs()[o]->debugName() << std::endl;
       new_node->outputs()[o]->copyMetadata(n->outputs()[o]);
       VALUE_MAP[n->outputs()[o]->unique()] = new_node->outputs()[o];
     }
@@ -399,7 +399,7 @@ void MPDFGBuilder(std::shared_ptr<MPDFGAnnotation> &mpdfg,
 
   std::cout << "VALUE Map Before parse:" << std::endl;
   for(auto i : VALUE_MAP) {
-    std::cout << i.first << ", " << i.second->debugName();
+    std::cout << i.first << ", " << i.second->debugName() << std::endl;
   }
 
   if (update_graph.has_value()) {
