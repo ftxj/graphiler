@@ -93,6 +93,8 @@ def profile(dataset, feat_dim, repeat=1000):
     print(g)
     print(type(g))
     print(vars(g))
+    print(type(g.DGLGraph))
+    exit()
     features = features.to(device)
 
     @empty_cache
