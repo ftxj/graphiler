@@ -52,8 +52,7 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
   auto mpdfg_final_node = mpdfg_block->nodes().end()->input()->node();
 
   for (auto n : in_block->nodes()) {
-    std::vector<const Node*> v;
-    n->print(std::cout, 10, &v);
+    n->dump();
 
     std::string n_kind = n->kind().toQualString();
 
