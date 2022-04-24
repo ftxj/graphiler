@@ -54,10 +54,10 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
   auto mpdfg_final_node = mpdfg_block->nodes().end()->input()->node();
 
   std::cout << "mpdfg_block: ";
-  mpdfg_block.dump();
+  mpdfg_block->dump();
 
   std::cout << "mpdfg_block final node: ";
-  mpdfg_final_node.dump();
+  mpdfg_final_node->dump();
 
   for (auto n : in_block->nodes()) {
     std::cout << "\nNode: ";
