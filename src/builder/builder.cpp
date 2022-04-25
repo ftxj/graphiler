@@ -192,6 +192,11 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
         mpdfg->data_residency[new_node->output()->unique()] =
             (new_kind_info->second == Movement::Norm) ? Residency::Edge
                                                       : Residency::Node;
+        
+
+        if(stage != Stage::Creation)
+        mpdfg->DFG->print(std::cout);
+
         continue;
       }
     }
