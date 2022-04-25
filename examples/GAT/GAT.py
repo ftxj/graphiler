@@ -84,6 +84,7 @@ class GAT(nn.Module):
         self.layer2 = GATLayer(hidden_dim, out_dim)
 
     def forward(self, g, features, compile=False):
+        print("Graphiler forward")
         h = self.layer1(g, features, compile)
         h = F.elu(h)
         h = self.layer2(g, h, compile)
