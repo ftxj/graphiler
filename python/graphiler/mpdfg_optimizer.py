@@ -22,7 +22,7 @@ def optimizer(mpdfg, opt_level):
         reorder(mpdfg)
     if opt_level > 1:
         # convergence check?
-        for _ in range(1):
+        for _ in range(0):
             reorder(mpdfg)
             fusion(mpdfg)
     return
