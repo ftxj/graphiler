@@ -128,7 +128,7 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
     for(auto i : new_inputs) {
       std::cout << "Input: " << i->debugName() << std::endl;
     }
-    
+
     if ((stage == Stage::Creation) && (n == in_final_node)) {
       std::cout << "Node is Msg Final Node" << std::endl;
       // construct mailbox in the message creation stage
@@ -140,6 +140,11 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
         // assert(key);
         // MAIL_BOX[key.value()] = new_inputs[o + 1];
       }
+      std::cout << "Mail Box\n";
+      for(auto m : MAIL_BOX) {
+        std::cout << m.first << ", " << m.second->debugName() << std::endl;
+      }
+      
       continue;
     } else if ((stage == Stage::Aggregation) &&
                (n_kind == std::string("aten::__getitem__")) &&
