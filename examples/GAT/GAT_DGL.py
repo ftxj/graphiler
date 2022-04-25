@@ -9,6 +9,8 @@ from graphiler.utils import load_data, setup, check_equal, bench, homo_dataset, 
 class GAT_DGL(nn.Module):
     def __init__(self, in_dim, hidden_dim, out_dim):
         super(GAT_DGL, self).__init__()
+        print(type(in_dim))
+        print(in_dim)
         self.layer1 = GATConv(in_dim, hidden_dim,
                               num_heads=1, allow_zero_in_degree=True)
         self.layer2 = GATConv(hidden_dim, out_dim,
