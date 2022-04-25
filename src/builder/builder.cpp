@@ -321,6 +321,7 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
       mpdfg_final_node->removeAllInputs();
       mpdfg_final_node->destroy();
     }
+    mpdfg->DFG->print(std::cout);
   }
 }
 
