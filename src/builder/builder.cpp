@@ -124,7 +124,11 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
       new_inputs_residency.push_back(
           mpdfg->data_residency[new_inputs.back()->unique()]);
     }
-
+    std::cout << "New Input\n";
+    for(auto i : new_inputs) {
+      std::cout << "Input: " << i->debugName() << std::endl;
+    }
+    
     if ((stage == Stage::Creation) && (n == in_final_node)) {
       std::cout << "Node is Msg Final Node" << std::endl;
       // construct mailbox in the message creation stage
@@ -171,10 +175,6 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
       }
     }
 
-    std::cout << "New Input\n";
-    for(auto i : new_inputs) {
-      std::cout << "Input: " << i->debugName() << std::endl;
-    }
     // copy nodes from original functions to MP-DFG
     auto new_node =
         mpdfg->DFG->create(n->kind(), new_inputs, n->outputs().size());
