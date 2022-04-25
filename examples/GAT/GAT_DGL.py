@@ -15,7 +15,6 @@ class GAT_DGL(nn.Module):
                               num_heads=1, allow_zero_in_degree=True)
         self.layer2 = GATConv(hidden_dim, out_dim,
                               num_heads=1, allow_zero_in_degree=True)
-        exit()
 
     def forward(self, g, features):
         print("DGL forward")
