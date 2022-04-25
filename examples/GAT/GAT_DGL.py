@@ -18,7 +18,7 @@ class GAT_DGL(nn.Module):
 
     def forward(self, g, features):
         print("DGL forward")
-        print(type(features))
+        print(features.size())
         h = self.layer1(g, features)
         h = F.elu(h)
         h = self.layer2(g, h)
