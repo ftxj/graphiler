@@ -45,6 +45,7 @@ operator_lowering(const std::string &n_kind,
 void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
                  c10::ArrayRef<Value *> mpdfg_params, Block *in_block,
                  Stage stage) {
+  if(stage != Stage::Creation)
   std::cout << "Begin Parse" << std::endl;
   auto dglgraph = mpdfg_params[0];
   auto mpdfg_block = mpdfg->DFG->block();
@@ -53,17 +54,25 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
   
   auto mpdfg_final_node = mpdfg_block->nodes().end()->input()->node();
 
+  if(stage != Stage::Creation)
   std::cout << "mpdfg_block: ";
+  
+  if(stage != Stage::Creation)
   mpdfg_block->owningGraph()->print(std::cout);
 
+  if(stage != Stage::Creation)
   std::cout << "mpdfg_block final node: ";
+  if(stage != Stage::Creation)
   mpdfg_final_node->dump();
 
   for (auto n : in_block->nodes()) {
+    if(stage != Stage::Creation)
     std::cout << "\nNode: ";
+    if(stage != Stage::Creation)
     n->dump();
 
     std::string n_kind = n->kind().toQualString();
+    if(stage != Stage::Creation)
     std::cout << "Node Kind = " << n_kind << std::endl;
 
     // Todo: modularize different parts of the function
@@ -116,20 +125,25 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
     std::vector<Value *> new_inputs;
     std::vector<Residency> new_inputs_residency;
 
+    if(stage != Stage::Creation)
     std::cout << "Old Input\n";
     for (auto i : n->inputs()) {
+      if(stage != Stage::Creation)
       std::cout << "Input: " << i->debugName() << std::endl;
       assert(VALUE_MAP.find(i->unique()) != VALUE_MAP.end());
       new_inputs.push_back(VALUE_MAP[i->unique()]);
       new_inputs_residency.push_back(
           mpdfg->data_residency[new_inputs.back()->unique()]);
     }
+    if(stage != Stage::Creation)
     std::cout << "New Input\n";
     for(auto i : new_inputs) {
+      if(stage != Stage::Creation)
       std::cout << "Input: " << i->debugName() << std::endl;
     }
 
     if ((stage == Stage::Creation) && (n == in_final_node)) {
+      if(stage != Stage::Creation)
       std::cout << "Node is Msg Final Node" << std::endl;
       // construct mailbox in the message creation stage
       assert(new_inputs.size() % 2 == 0);
@@ -140,11 +154,13 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
         // assert(key);
         // MAIL_BOX[key.value()] = new_inputs[o + 1];
       }
+      if(stage != Stage::Creation)
       std::cout << "Mail Box\n";
       for(auto m : MAIL_BOX) {
+        if(stage != Stage::Creation)
         std::cout << m.first << ", " << m.second->debugName() << std::endl;
       }
-      
+
       continue;
     } else if ((stage == Stage::Aggregation) &&
                (n_kind == std::string("aten::__getitem__")) &&
@@ -187,15 +203,19 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
     new_node->copyAttributes(*n);
     new_node->insertBefore(mpdfg_final_node);
 
+    if(stage != Stage::Creation)
     std::cout << "Old Outputs\n";
     for (size_t o = 0; o < n->outputs().size(); o++) {
+      if(stage != Stage::Creation)
       std::cout << "Output: " << n->outputs()[o]->debugName() << std::endl;
       new_node->outputs()[o]->copyMetadata(n->outputs()[o]);
       VALUE_MAP[n->outputs()[o]->unique()] = new_node->outputs()[o];
     }
 
+    if(stage != Stage::Creation)
     std::cout << "New Outputs\n";
     for (size_t o = 0; o < new_node->outputs().size(); o++) {
+      if(stage != Stage::Creation)
       std::cout << "Output: " << new_node->outputs()[o]->debugName() << std::endl;
     }
     // default movement types of operators
@@ -326,6 +346,7 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
       mpdfg_final_node->removeAllInputs();
       mpdfg_final_node->destroy();
     }
+    if(stage != Stage::Creation)
     mpdfg->DFG->print(std::cout);
   }
 }
