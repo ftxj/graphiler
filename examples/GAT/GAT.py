@@ -98,6 +98,7 @@ def profile(dataset, feat_dim, repeat=1000):
     print("benchmarking on: " + dataset)
     g, features = load_data(dataset, feat_dim, prepare=False)
     features = features.to(device)
+    print("Why Bugs/...")
 
     @empty_cache
     def run_baseline_graphiler(g, features):
