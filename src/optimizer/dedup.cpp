@@ -5,9 +5,23 @@ namespace graphiler {
 void dedup(std::shared_ptr<torch::jit::Graph> &graph) {
 
   // provided by TorchScript but not working for introduced my_ops
+  std::cout << "Before dedup=:" << std::endl;
+  graph->print(std::cout);
+
   EliminateDeadCode(graph);
+
+  std::cout << "After EliminateDeadCode =:" << std::endl;
+  graph->print(std::cout);
+
   ConstantPooling(graph);
+
+  std::cout << "After ConstantPooling =:" << std::endl;
+  graph->print(std::cout);
+
   EliminateCommonSubexpression(graph);
+  
+  std::cout << "After EliminateCommonSubexpression =:" << std::endl;
+  graph->print(std::cout);
 
   // same value used by multiple users
   // values are not used by any users
@@ -39,5 +53,8 @@ void dedup(std::shared_ptr<torch::jit::Graph> &graph) {
   }
   unique_nodes.clear();
   nodes_to_delete.clear();
+
+  std::cout << "After dedup =:" << std::endl;
+  graph->print(std::cout);
 }
 } // namespace graphiler
