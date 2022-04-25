@@ -50,6 +50,7 @@ print(mpdfg.forward.code)
 class GATLayer(nn.Module):
     def __init__(self, in_dim, out_dim):
         super(GATLayer, self).__init__()
+        print("GATLayer Init...")
         self.fc_weight = torch.rand(in_dim, out_dim).to(device)
         self.attn_weight = torch.rand(2 * out_dim, 1).to(device)
 
@@ -105,7 +106,7 @@ def profile(dataset, feat_dim, repeat=1000):
         g = g.to(device)
         net = GAT(in_dim=feat_dim, hidden_dim=DEFAULT_DIM,
                   out_dim=DEFAULT_DIM).to(device)
-        # net.eval()
+        net.eval()
         print(type(g.DGLGraph))
         with torch.no_grad():
             compile_res = bench(net=net, net_params=(
