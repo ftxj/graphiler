@@ -44,7 +44,6 @@ def load_data(name, feat_dim=DEFAULT_DIM, prepare=True, to_homo=True):
         g = dataset[0]
         print(g)
         print(type(g))
-        print("BUgs...")
     elif name == "debug":
         g = dgl.graph(([0, 0, 0, 1, 1, 2], [0, 1, 2, 1, 2, 2]))
     elif name == 'aifb':
@@ -117,7 +116,6 @@ def load_data(name, feat_dim=DEFAULT_DIM, prepare=True, to_homo=True):
         g = prepare_graph(g)
     g.ntype_data = {}
     g.etype_data = {}
-    print("Return from load")
     return g, node_feats
 
 

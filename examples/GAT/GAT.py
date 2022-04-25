@@ -86,6 +86,7 @@ class GAT(nn.Module):
 
     def forward(self, g, features, compile=False):
         print("Graphiler forward")
+        print(type(features))
         h = self.layer1(g, features, compile)
         h = F.elu(h)
         h = self.layer2(g, h, compile)
@@ -98,7 +99,6 @@ def profile(dataset, feat_dim, repeat=1000):
     print("benchmarking on: " + dataset)
     g, features = load_data(dataset, feat_dim, prepare=False)
     features = features.to(device)
-    print("Why Bugs/...")
 
     @empty_cache
     def run_baseline_graphiler(g, features):
