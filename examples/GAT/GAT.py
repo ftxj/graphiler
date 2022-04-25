@@ -105,6 +105,7 @@ def profile(dataset, feat_dim, repeat=1000):
         net = GAT(in_dim=feat_dim, hidden_dim=DEFAULT_DIM,
                   out_dim=DEFAULT_DIM).to(device)
         net.eval()
+        print(type(g.DGLGraph))
         with torch.no_grad():
             compile_res = bench(net=net, net_params=(
                 g, features, True), tag="3-Graphiler", nvprof=False, repeat=repeat, memory=True, log=log)
