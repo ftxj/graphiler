@@ -24,7 +24,6 @@ BREAK_FLAG = 2
 # therefore, we pass extra parameters as a workaround for class member
 # e.g., self.fc_weight, compare with GATLayer.message_func for the difference
 def message_func(edges: EdgeBatchDummy, fc_weight, attn_weight):
-    print(type(edges))
     print(len(edges))
     z_s = torch.mm(edges.src['h'], fc_weight)
     z_d = torch.mm(edges.dst['h'], fc_weight)
