@@ -141,6 +141,10 @@ void fusion(std::shared_ptr<MPDFGAnnotation> &mpdfg) {
   }
 
   rewriter.runOnGraph(mpdfg->DFG);
-  // dedup(mpdfg->DFG);
+  
+  std::cout << "After Fusion" << std::endl;
+  mpdfg->DFG->print(std::cout);
+  
+  dedup(mpdfg->DFG);
 }
 } // namespace graphiler

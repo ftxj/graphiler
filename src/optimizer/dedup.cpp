@@ -5,9 +5,6 @@ namespace graphiler {
 void dedup(std::shared_ptr<torch::jit::Graph> &graph) {
 
   // provided by TorchScript but not working for introduced my_ops
-  std::cout << "Before dedup=:" << std::endl;
-  graph->print(std::cout);
-
   EliminateDeadCode(graph);
 
   std::cout << "After EliminateDeadCode =:" << std::endl;

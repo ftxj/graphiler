@@ -1,11 +1,15 @@
 #include "optimizer.h"
-
+#include <iostream>
 namespace graphiler {
 
 void split(std::shared_ptr<MPDFGAnnotation> &mpdfg) {
+
   // specific pattern for GAT and its variants
   torch::jit::Inline(*mpdfg->DFG);
   // Todo: explicitly using residency to assist pattern matching
+
+
+
   std::string concat_mul = R"(
       graph(%src, %dst, %weight, %dim):
         %list : Tensor[] = prim::ListConstruct(%src, %dst)
@@ -30,6 +34,10 @@ void split(std::shared_ptr<MPDFGAnnotation> &mpdfg) {
   torch::jit::SubgraphRewriter rewriter;
   rewriter.RegisterRewritePattern(concat_mul, split_mul_sum);
   rewriter.runOnGraph(mpdfg->DFG);
-  // dedup(mpdfg->DFG);
+
+  std::cout << "After Split" << std::endl;
+  mpdfg->DFG->print(std::cout);
+
+  dedup(mpdfg->DFG);
 }
 } // namespace graphiler
