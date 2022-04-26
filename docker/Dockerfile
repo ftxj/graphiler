@@ -27,7 +27,7 @@ RUN pip install torch==1.8.2+cu111 -f https://download.pytorch.org/whl/lts/1.8/t
 
 
 RUN git clone -b master https://github.com/ftxj/dgl.git /root/dgl
-RUN cd /root/dgl
+RUN cd /root/dgl \
   && mkdir build \
   && cd build \
   && cmake -DUSE_CUDA=ON .. \
