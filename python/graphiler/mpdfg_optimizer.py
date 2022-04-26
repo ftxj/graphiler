@@ -20,7 +20,7 @@ def optimizer(mpdfg, opt_level):
         split(mpdfg)
         reorder(mpdfg)
         reorder(mpdfg)
-    if opt_level > 1:
+    if opt_level > 1:   
         # convergence check?
         for _ in range(0):
             reorder(mpdfg)
