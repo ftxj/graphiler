@@ -26,7 +26,7 @@ RUN pip install torch==1.8.2+cu111 -f https://download.pytorch.org/whl/lts/1.8/t
     && pip install netron
 
 
-RUN git clone -b 0.6.x https://github.com/ftxj/dgl.git /root/dgl
+RUN git clone -b 0.6.x --recurse-submodules https://github.com/ftxj/dgl.git /root/dgl
 RUN cd /root/dgl \
   && mkdir build \
   && cd build \
