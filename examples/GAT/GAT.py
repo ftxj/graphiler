@@ -23,13 +23,14 @@ class GAT_PyG(nn.Module):
                  out_dim):
         super(GAT_PyG, self).__init__()
 
-        self.layer1 = GATConv(in_channles=in_dim,
+        self.layer1 = GATConv(in_channels=in_dim,
                               out_channels=hidden_dim,
                               heads=1).jittable()
 
-        self.layer2 = GATConv(in_channles=hidden_dim,
+        self.layer2 = GATConv(in_channels=hidden_dim,
                               out_channels=out_dim,
-                              heads=1).jittable()
+                              heads
+                              =1).jittable()
 
     def reset_parameters(self):
         for layer in self.gat_layers:
