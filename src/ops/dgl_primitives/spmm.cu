@@ -69,7 +69,7 @@ void SpMMCsr(
       SWITCH_BITS(bits, DType, {
         int feat_len = 1;
         auto ufeat_shp = ufeat.sizes();
-        std::cout << "feat dim:";
+        std::cout << "feat dim:" << ufeat_shp[0] << " ";
         for (int i = 1; i < ufeat.ndimension(); ++i) {
           feat_len *= ufeat_shp[i];
           std::cout << ufeat_shp[i] << std::endl;
