@@ -81,11 +81,15 @@ class GATLayer(nn.Module):
     def message_func(self, edges):
         print(edges.src['h'].size())
         print(edges.src)
-        
         z_s = torch.mm(edges.src['h'], self.fc_weight)
         print(z_s.size())
+        
         z_d = torch.mm(edges.dst['h'], self.fc_weight)
         z2 = torch.cat([z_s, z_d], dim=1)
+        
+        print(z2.size())
+        
+
         a = torch.mm(z2, self.attn_weight)
         return {'z': z_s, 'e': torch.relu(a)}
 
