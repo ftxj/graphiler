@@ -66,6 +66,8 @@ func = dgl.function.u_add_v('el', 'er', 'e')
 
 alldata = [graph.srcdata, graph.dstdata, graph.edata]
 
+print(alldata.type())
+
 if isinstance(func, dgl.function.BinaryMessageFunction):
     print(func.lhs)
     print(func.lhs_field)
