@@ -102,6 +102,7 @@ class GATLayer(nn.Module):
         print("reduce:--------------------------------------------")
 
         print('mailbox-e:', nodes.mailbox)
+        exit()
 
         print('mailbox-e:', nodes.mailbox['e'].size())
         alpha = torch.softmax(nodes.mailbox['e'], dim=1)
