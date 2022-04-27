@@ -80,6 +80,7 @@ class GATLayer(nn.Module):
 
     def message_func(self, edges):
         z_s = torch.mm(edges.src['h'], self.fc_weight)
+        print(z_s.size())
         z_d = torch.mm(edges.dst['h'], self.fc_weight)
         z2 = torch.cat([z_s, z_d], dim=1)
         a = torch.mm(z2, self.attn_weight)
@@ -101,8 +102,8 @@ class GATLayer(nn.Module):
                 self.fc_weight, self.attn_weight))
         else:
             print('run false')
-            exit()
             g.update_all(self.message_func, reduce_func)
+            exit()
         return g.ndata.pop('h')
 
 
