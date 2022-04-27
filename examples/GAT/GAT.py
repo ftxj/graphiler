@@ -144,7 +144,6 @@ def profile(dataset, feat_dim, repeat=1000):
         with torch.no_grad():
             compile_res = bench(net=net, net_params=(
                 g, features, True), tag="3-Graphiler", nvprof=False, repeat=repeat, memory=True, log=log)
-            exit()
             res = bench(net=net, net_params=(g, features, False),
                         tag="0-DGL-UDF", nvprof=False, repeat=repeat, memory=True, log=log)
             print("check equal")
