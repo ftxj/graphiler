@@ -10,7 +10,7 @@
 #include <THC/THC.h>
 #include <cusparse_v2.h>
 #include <torch/torch.h>
-
+#include <iostream>
 namespace dgl {
 
 using namespace cuda;
@@ -360,6 +360,11 @@ torch::Tensor SpMMEdge(torch::Tensor features, std::vector<int64_t> dims,
                        bool keep_dim, at::optional<at::ScalarType> dtype,
                        const c10::intrusive_ptr<DGLGraph> &graph) {
   int feat_dim = features.dim() == 1 ? 1 : features.size(1);
+  std::cout << "SpMMEdge feature size:";
+  for(int i = 0; i < features.dim(); ++i) {
+    std::cout << features.size(i) << ", ";
+  }
+  std::cout << std::endl;
   auto out = torch::zeros({graph->num_nodes, feat_dim},
                           torch::dtype(torch::kFloat32).device(torch::kCUDA));
   auto empty =

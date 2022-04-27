@@ -111,17 +111,17 @@ class GATLayer(nn.Module):
     def forward(self, g, feature, compile=False):
         g.ndata['h'] = feature
         if compile:
-            # if BREAK_FLAG == 0:
-            #     update_all(g, mpdfg_compile, msg_params=(
-            #         self.fc_weight, self.attn_weight))
-            # elif BREAK_FLAG == 1:
-            #     update_all(g, mpdfg_plus_reorder, msg_params=(
-            #         self.fc_weight, self.attn_weight))
-            # else:
-            print('run True')
-            exit()
-            # update_all(g, mpdfg, msg_params=(
-            #     self.fc_weight, self.attn_weight))
+            if BREAK_FLAG == 0:
+                update_all(g, mpdfg_compile, msg_params=(
+                    self.fc_weight, self.attn_weight))
+            elif BREAK_FLAG == 1:
+                update_all(g, mpdfg_plus_reorder, msg_params=(
+                    self.fc_weight, self.attn_weight))
+            else:
+                print('run True')
+                exit()
+                update_all(g, mpdfg, msg_params=(
+                    self.fc_weight, self.attn_weight))
         else:
             print('run false')
             g.update_all(self.message_func, self.reduce_func)
@@ -161,13 +161,13 @@ def profile(dataset, feat_dim, repeat=1000):
         net.eval()
         print(type(g.DGLGraph))
         with torch.no_grad():
-            # compile_res = bench(net=net, net_params=(
-            #     g, features, False), tag="3-Graphiler", nvprof=False, repeat=repeat, memory=True, log=log)
+            compile_res = bench(net=net, net_params=(
+                g, features, True), tag="3-Graphiler", nvprof=False, repeat=repeat, memory=True, log=log)
             
             res = bench(net=net, net_params=(g, features, False),
                         tag="0-DGL-UDF", nvprof=False, repeat=repeat, memory=True, log=log)
             check_equal(compile_res, res)
-        del g, net, res, res
+        del g, net, compile_res, res
 
     @empty_cache
     def run_pyg(g, features):
