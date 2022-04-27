@@ -74,7 +74,7 @@ void SpMMCsr(
           feat_len *= ufeat_shp[i];
           std::cout << ufeat_shp[i] << std::endl;
         }
-        std::endl;
+        std::cout << std::endl;
         int m = num_rows, n = feat_len, k = num_cols;
         int nnz = csr_indices.size(0);
         DType alpha = 1., beta = 0.;
