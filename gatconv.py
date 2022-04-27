@@ -63,21 +63,19 @@ print(graph.dstdata)
 
 func = dgl.function.u_add_v('el', 'er', 'e')
 
-print(func.name)
 
 alldata = [graph.srcdata, graph.dstdata, graph.edata]
 
 if isinstance(func, dgl.function.BinaryMessageFunction):
+    print(func.lhs)
+    print(func.lhs_field)
+    
     x = alldata[func.lhs][func.lhs_field]
     y = alldata[func.rhs][func.rhs_field]
     print(x)
-    op = getattr(ops, func.name)
-    z = op(graph, x, y)
-else:
-    x = alldata[func.target][func.in_field]
-    print(x)
-    op = getattr(ops, func.name)
-    z = op(graph, x)
+    print(y)
+    print(func.name)
+
 
 
 graph.apply_edges(dgl.function.u_add_v('el', 'er', 'e'))
