@@ -119,7 +119,6 @@ class GATLayer(nn.Module):
                 print('run True')
                 update_all(g, mpdfg, msg_params=(
                     self.fc_weight, self.attn_weight))
-                exit()
         else:
             print('run false')
             g.update_all(self.message_func, self.reduce_func)
