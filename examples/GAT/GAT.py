@@ -51,7 +51,7 @@ def message_func(edges: EdgeBatchDummy, fc_weight, attn_weight):
     z_s = torch.mm(edges.src['h'], fc_weight)
     ones = torch.ones([88650, 1])
     ones2 = torch.ones([8865, 2])
-    ones3 = torch.mm(ones, one2)
+    ones3 = torch.mm(ones, ones2)
     z_s = torch.mm(z_s, ones3)
     z_d = torch.mm(edges.dst['h'], fc_weight)
     z2 = torch.cat([z_s, z_d], dim=1)
