@@ -26,20 +26,12 @@ class GAT_PyG(nn.Module):
         self.layer1 = GATConv(in_channels=in_dim,
                               out_channels=hidden_dim,
                               heads=1).jittable()
-
-        self.layer2 = GATConv(in_channels=hidden_dim,
-                              out_channels=out_dim,
-                              heads
-                              =1).jittable()
-
     def reset_parameters(self):
         for layer in self.gat_layers:
             layer.reset_parameters()
 
     def forward(self, x, adj):
         h = self.layer1(x, adj)
-        h = F.elu(h)
-        h = self.layer2(h, adj)
         return h
 
 
@@ -157,14 +149,11 @@ def profile(dataset, feat_dim, repeat=1000):
             g.num_src_nodes(), g.num_dst_nodes())).to(device)
         net_pyg = GAT_PyG(in_dim=feat_dim, hidden_dim=DEFAULT_DIM,
                           out_dim=DEFAULT_DIM).to(device)
-        
-        model = torch.jit.script(net_pyg)
-
-        print(model.inlined_graph)
-        exit()
-        
         net_pyg.eval()
         with torch.no_grad():
+            model = torch.jit.trace(net_pyg, (features, adj))
+            print(model.inlined_graph)
+            exit()
             bench(net=net_pyg, net_params=(features, adj),
                   tag="2-PyG-primitives", nvprof=False, repeat=repeat, memory=True, log=log)
         del u, v, adj, net_pyg
