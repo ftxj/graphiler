@@ -150,7 +150,7 @@ def prepare_graph(g, ntype=None):
         reduce_node_pointer, reduce_node_index, reduce_edge_index, 
         message_node_pointer, message_node_index, message_edge_index,
         Coosrc, Coodst, None, None)
-
+    print(Coosrc)
     return g
 
 
