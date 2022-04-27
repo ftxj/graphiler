@@ -85,6 +85,14 @@ void SpMMCsr(
             },
             ufeat.options());
 
+        auto edge_weight_shp = edge_weight.sizes();
+        std::cout << "edge_weight dim:" << edge_weight_shp[0] << " ";
+        for (int i = 1; i < edge_weight.ndimension(); ++i) {
+          feat_len *= edge_weight_shp[i];
+          std::cout << edge_weight_shp[i] << std::endl;
+        }
+        std::cout << std::endl;        
+
         cusparseSpMatDescr_t matA;
         cusparseDnMatDescr_t matB, matC;
         std::cout << "MatA size = " << m << " x " << k << std::endl;
