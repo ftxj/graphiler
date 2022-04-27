@@ -124,6 +124,11 @@ def profile(dataset, feat_dim, repeat=1000):
             g.num_src_nodes(), g.num_dst_nodes())).to(device)
         net_pyg = GAT_PyG(in_dim=feat_dim, hidden_dim=DEFAULT_DIM,
                           out_dim=DEFAULT_DIM).to(device)
+        
+        model = torch.jit.script(model)
+
+        print(model.graph)
+        
         net_pyg.eval()
         with torch.no_grad():
             bench(net=net_pyg, net_params=(features, adj),
@@ -143,8 +148,8 @@ def profile(dataset, feat_dim, repeat=1000):
         del g, net_dgl
 
     # run_baseline_graphiler(g, features)
-    # run_pyg(g, features)
-    run_dgl(g, features)
+    run_pyg(g, features)
+    # run_dgl(g, features)
 
     return log
 

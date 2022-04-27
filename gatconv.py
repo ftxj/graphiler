@@ -17,6 +17,7 @@ num_heads = 2
 out_feats = 8
 
 feat_drop = nn.Dropout(0)
+atten_drop = nn.Dropout(0)
 
 attn_l = nn.Parameter(torch.FloatTensor(size=(1, num_heads, out_feats)))
 attn_r = nn.Parameter(torch.FloatTensor(size=(1, num_heads, out_feats)))
@@ -84,3 +85,12 @@ graph.apply_edges(dgl.function.u_add_v('el', 'er', 'e'))
 
 
 e = leaky_relu(graph.edata.pop('e'))
+
+
+
+graph.edata['a'] = attn_drop(dgl.functional.edge_softmax(graph, e))
+
+# message passing
+graph.update_all(dgl.function.u_mul_e('ft', 'a', 'm'), dgl.function.sum('m', 'ft'))
+
+rst = graph.dstdata['ft']
