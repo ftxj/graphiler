@@ -121,14 +121,14 @@ class GAT(nn.Module):
     def __init__(self, in_dim, hidden_dim, out_dim):
         super(GAT, self).__init__()
         self.layer1 = GATLayer(in_dim, hidden_dim)
-        self.layer2 = GATLayer(hidden_dim, out_dim)
+        # self.layer2 = GATLayer(hidden_dim, out_dim)
 
     def forward(self, g, features, compile=False):
         print("Graphiler forward")
         print(type(features))
         h = self.layer1(g, features, compile)
         h = F.elu(h)
-        h = self.layer2(g, h, compile)
+        # h = self.layer2(g, h, compile)
         return h
 
 
@@ -231,7 +231,7 @@ if __name__ == '__main__':
     if sys.argv[1] == "all":
         log = {}
         for d in homo_dataset:  
-            log[d] = profile(d, homo_dataset[d], repeat)
+            log[d] = profile(d, homo_dataset[d], 1)
         pd.DataFrame(log).to_pickle("output/GAT.pkl")
     elif sys.argv[1] == "breakdown":
         log = {}
