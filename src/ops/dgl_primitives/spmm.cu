@@ -49,11 +49,19 @@ namespace aten {
  *       no broadcast, use dgl's kernel in other cases.
  */
 template <typename IdType, int bits>
-void SpMMCsr(const std::string &op, const std::string &reduce, int64_t num_rows,
-             int64_t num_cols, at::Tensor csr_indptr, at::Tensor csr_indices,
-             at::Tensor csr_data, at::Tensor ufeat, at::Tensor efeat,
-             at::Tensor out, std::vector<at::Tensor> out_aux) {
-  std::cout << "----------------------------" << std::endl;
+void SpMMCsr(
+            const std::string &op, 
+            const std::string &reduce, 
+            int64_t num_rows,       // node
+            int64_t num_cols,       // edges
+            at::Tensor csr_indptr,  // edge len
+            at::Tensor csr_indices, // edge idx
+            at::Tensor csr_data,  // empty
+            at::Tensor ufeat, //edgeSpMM: edge_data
+            at::Tensor efeat, // empty
+            at::Tensor out, // out 
+            std::vector<at::Tensor> out_aux // empty list
+            ) {
   auto bcast = CalcBcastOff(op, ufeat, efeat);
   if (reduce == "sum") {
     if (op == "copy_lhs") { // no edge data.
@@ -75,7 +83,7 @@ void SpMMCsr(const std::string &op, const std::string &reduce, int64_t num_rows,
 
         cusparseSpMatDescr_t matA;
         cusparseDnMatDescr_t matB, matC;
-
+        std::cout << "MatA size = " << m << " x " << k << std::endl;
         constexpr auto dtype = dgl::runtime::cuda_dtype<DType>::value;
         constexpr auto idtype = dgl::runtime::cusparse_idtype<IdType>::value;
         CUSPARSE_CALL(cusparseCreateCsr(
@@ -233,7 +241,7 @@ __global__ void u_mul_e_sum_kernel_neat(
   __shared__ int neighbor_local[tile_r << 5];
   __shared__ float factor_local[tile_r << 5];
   float local[factor];
-#pragma unroll
+  #pragma unroll
   for (int i = 0; i < factor; i++) {
     local[i] = 0;
   }
@@ -245,13 +253,13 @@ __global__ void u_mul_e_sum_kernel_neat(
         node_index[offset + i * 32 + threadIdx.x] * feat_dim;
     factor_local[sm_offset + threadIdx.x] =
         efeature[edge_index[offset + i * 32 + threadIdx.x]];
-#pragma unroll
+  #pragma unroll
     for (int j = 0; j < 32; j++) {
       // const int eid = __ldg(edge_index + offset + i * 32 + j);
       // float local_factor = efeature[eid];
       int local_target = neighbor_local[sm_offset + j] + feat_id;
       float local_factor = factor_local[sm_offset + j];
-#pragma unroll
+  #pragma unroll
       for (int k = 0; k < factor; k++) {
         local[k] += ufeature[local_target + (k << 5)] * local_factor;
       }
@@ -270,12 +278,12 @@ __global__ void u_mul_e_sum_kernel_neat(
     // const int eid = __ldg(edge_index + offset + degree - (degree % 32) + i);
     // float local_factor = efeature[eid];
     int local_target = neighbor_local[sm_offset + i] + feat_id;
-#pragma unroll
+  #pragma unroll
     for (int k = 0; k < factor; k++) {
       local[k] += ufeature[local_target + (k << 5)] * local_factor;
     }
   }
-#pragma unroll
+  #pragma unroll
   for (int i = 0; i < factor; i++) {
     next_layer[node_id * feat_dim + feat_id + i * 32] = local[i];
   }
@@ -362,7 +370,6 @@ torch::Tensor SpMMEdge(torch::Tensor features, std::vector<int64_t> dims,
                        bool keep_dim, at::optional<at::ScalarType> dtype,
                        const c10::intrusive_ptr<DGLGraph> &graph) {
   int feat_dim = features.dim() == 1 ? 1 : features.size(1);
-  printf("------------------printf\n");
   std::cout << "SpMMEdge feature size:";
   for(int i = 0; i < features.dim(); ++i) {
     std::cout << features.size(i) << ", ";
