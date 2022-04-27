@@ -11,7 +11,38 @@ from graphiler import EdgeBatchDummy, NodeBatchDummy, mpdfg_builder, update_all
 from graphiler.utils import load_data, setup, check_equal, bench, homo_dataset, DEFAULT_DIM, init_log, empty_cache
 
 from GAT_DGL import GAT_DGL
-from GAT_PyG import GAT_PyG
+
+from torch_geometric.nn import GATConv
+
+
+
+class GAT_PyG(nn.Module):
+    def __init__(self,
+                 in_dim,
+                 hidden_dim,
+                 out_dim):
+        super(GAT_PyG, self).__init__()
+
+        self.layer1 = GATConv(in_feats=in_dim,
+                              out_feats=hidden_dim,
+                              num_heads=1).jittable()
+
+        self.layer2 = GATConv(in_feats=hidden_dim,
+                              out_feats=out_dim,
+                              num_heads=1).jittable()
+
+    def reset_parameters(self):
+        for layer in self.gat_layers:
+            layer.reset_parameters()
+
+    def forward(self, x, adj):
+        h = self.layer1(x, adj)
+        h = F.elu(h)
+        h = self.layer2(h, adj)
+        return h
+
+
+# from GAT_PyG import GAT_PyG
 
 print("GAT example test")
 
@@ -119,6 +150,7 @@ def profile(dataset, feat_dim, repeat=1000):
 
     @empty_cache
     def run_pyg(g, features):
+        print("Run RyG")
         u, v = g.edges()
         adj = SparseTensor(row=u, col=v, sparse_sizes=(
             g.num_src_nodes(), g.num_dst_nodes())).to(device)
@@ -189,7 +221,7 @@ if __name__ == '__main__':
         exit()
     if sys.argv[1] == "all":
         log = {}
-        for d in homo_dataset:
+        for d in homo_dataset:  
             log[d] = profile(d, homo_dataset[d], repeat)
         pd.DataFrame(log).to_pickle("output/GAT.pkl")
     elif sys.argv[1] == "breakdown":
