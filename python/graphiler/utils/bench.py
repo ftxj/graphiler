@@ -18,6 +18,7 @@ def check_equal(first, second):
 
 def bench(net, net_params, tag="", nvprof=False, memory=False, repeat=1000, log=None):
     try:
+        print("begin bench")
         # warm up
         for i in range(5):
             net(*net_params)

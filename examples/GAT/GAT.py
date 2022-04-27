@@ -239,7 +239,7 @@ if __name__ == '__main__':
     if sys.argv[1] == "all":
         log = {}
         for d in homo_dataset:  
-            log[d] = profile(d, homo_dataset[d], 1)
+            log[d] = profile(d, homo_dataset[d], repeat)
         pd.DataFrame(log).to_pickle("output/GAT.pkl")
     elif sys.argv[1] == "breakdown":
         log = {}
