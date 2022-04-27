@@ -155,7 +155,7 @@ def profile(dataset, feat_dim, repeat=1000):
             res = bench(net=net, net_params=(g, features, False),
                         tag="0-DGL-UDF", nvprof=False, repeat=repeat, memory=True, log=log)
             check_equal(compile_res, res)
-        del g, net, compile_res, res
+        del g, net, res, res
 
     @empty_cache
     def run_pyg(g, features):
