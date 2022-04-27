@@ -69,9 +69,12 @@ void SpMMCsr(
       SWITCH_BITS(bits, DType, {
         int feat_len = 1;
         auto ufeat_shp = ufeat.sizes();
+        std::cout << "feat dim:";
         for (int i = 1; i < ufeat.ndimension(); ++i) {
           feat_len *= ufeat_shp[i];
+          std::cout << ufeat_shp[i] << std::endl;
         }
+        std::endl;
         int m = num_rows, n = feat_len, k = num_cols;
         int nnz = csr_indices.size(0);
         DType alpha = 1., beta = 0.;
