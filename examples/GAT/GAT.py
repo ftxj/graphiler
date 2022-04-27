@@ -160,7 +160,7 @@ def profile(dataset, feat_dim, repeat=1000):
         
         model = torch.jit.script(net_pyg)
 
-        print(model.graph)
+        print(model.inlined_graph)
         exit()
         
         net_pyg.eval()
