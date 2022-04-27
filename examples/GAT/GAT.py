@@ -101,7 +101,7 @@ class GATLayer(nn.Module):
     def reduce_func(self, nodes):
         print("reduce:--------------------------------------------")
 
-        print('mailbox-e:', nodes.mailbox['e'].size())
+        print('mailbox-e:', nodes.mailbox['e'])
         print('mailbox-e:', nodes.mailbox['e'].size())
         
         exit()
