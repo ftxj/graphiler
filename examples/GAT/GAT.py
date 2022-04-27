@@ -80,30 +80,15 @@ class GATLayer(nn.Module):
         self.attn_weight = torch.rand(2 * out_dim, 1).to(device)
 
     def message_func(self, edges):
-        print("message:--------------------------------------------")
-        print(edges.src['h'].size())
-        print(edges.src)
         z_s = torch.mm(edges.src['h'], self.fc_weight)
-        print(z_s.size())
-        
         z_d = torch.mm(edges.dst['h'], self.fc_weight)
         z2 = torch.cat([z_s, z_d], dim=1)
-        
-        print(z2.size())
-        
-
         a = torch.mm(z2, self.attn_weight)
         return {'z': z_s, 'e': torch.relu(a)}
 
     def reduce_func(self, nodes):
-        print("reduce:--------------------------------------------")
-        print('mailbox-e:', nodes.mailbox['e'])
-        print('mailbox-e:', nodes.mailbox['e'].size())
-        exit()
         alpha = torch.softmax(nodes.mailbox['e'], dim=1)
-        print('alpha size', alpha.size())
         h = torch.sum(alpha * nodes.mailbox['z'], dim=1)
-        print('h size', alpha.size())
         return {'h': h}
         
     def forward(self, g, feature, compile=False):
@@ -122,7 +107,6 @@ class GATLayer(nn.Module):
         else:
             print('run false')
             g.update_all(self.message_func, self.reduce_func)
-            exit()
         return g.ndata.pop('h')
 
 
@@ -163,6 +147,7 @@ def profile(dataset, feat_dim, repeat=1000):
             
             res = bench(net=net, net_params=(g, features, False),
                         tag="0-DGL-UDF", nvprof=False, repeat=repeat, memory=True, log=log)
+            print("check equal")
             check_equal(compile_res, res)
         del g, net, compile_res, res
 
