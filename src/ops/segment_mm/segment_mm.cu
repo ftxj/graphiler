@@ -1,5 +1,5 @@
 #include "../ops.cuh"
-
+#include <iostream>
 // Todo: faster implementation using native cuda
 inline torch::Tensor SegmentMMBase(torch::Tensor features,
                                    torch::Tensor weights,
@@ -28,6 +28,7 @@ torch::Tensor SegmentMMNode(torch::Tensor features, torch::Tensor weights,
 
 torch::Tensor SegmentMMEdge(torch::Tensor features, torch::Tensor weights,
                             const c10::intrusive_ptr<DGLGraph> &graph) {
+  std::cout << "----------------------------" << std::endl;
   return SegmentMMBase(features, weights, graph->etype_pointer.value(),
                        graph->num_etypes);
 }

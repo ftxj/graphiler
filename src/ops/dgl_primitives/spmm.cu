@@ -11,6 +11,7 @@
 #include <cusparse_v2.h>
 #include <torch/torch.h>
 #include <iostream>
+#include <cstdio>
 namespace dgl {
 
 using namespace cuda;
@@ -52,6 +53,7 @@ void SpMMCsr(const std::string &op, const std::string &reduce, int64_t num_rows,
              int64_t num_cols, at::Tensor csr_indptr, at::Tensor csr_indices,
              at::Tensor csr_data, at::Tensor ufeat, at::Tensor efeat,
              at::Tensor out, std::vector<at::Tensor> out_aux) {
+  std::cout << "----------------------------" << std::endl;
   auto bcast = CalcBcastOff(op, ufeat, efeat);
   if (reduce == "sum") {
     if (op == "copy_lhs") { // no edge data.
@@ -360,6 +362,7 @@ torch::Tensor SpMMEdge(torch::Tensor features, std::vector<int64_t> dims,
                        bool keep_dim, at::optional<at::ScalarType> dtype,
                        const c10::intrusive_ptr<DGLGraph> &graph) {
   int feat_dim = features.dim() == 1 ? 1 : features.size(1);
+  printf("------------------printf\n");
   std::cout << "SpMMEdge feature size:";
   for(int i = 0; i < features.dim(); ++i) {
     std::cout << features.size(i) << ", ";
