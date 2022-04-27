@@ -79,7 +79,9 @@ class GATLayer(nn.Module):
         self.attn_weight = torch.rand(2 * out_dim, 1).to(device)
 
     def message_func(self, edges):
-        print(edges.src['h'])
+        print(edges.src['h'].size())
+        print(edges.src)
+        
         z_s = torch.mm(edges.src['h'], self.fc_weight)
         print(z_s.size())
         z_d = torch.mm(edges.dst['h'], self.fc_weight)
