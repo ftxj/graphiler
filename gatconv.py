@@ -74,8 +74,8 @@ if isinstance(func, dgl.function.BinaryMessageFunction):
     
     x = alldata[func.lhs][func.lhs_field]
     y = alldata[func.rhs][func.rhs_field]
-    print(x)
-    print(y)
+    print(x.size())
+    print(y.size())
     print(func.name)
 
 
