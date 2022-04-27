@@ -45,11 +45,19 @@ else:
 
 el = (feat_src * attn_l).sum(dim=-1).unsqueeze(-1)
 
+print('el : ', el.type(), el.size())
+
 er = (feat_dst * attn_r).sum(dim=-1).unsqueeze(-1)
+
+print('er : ', er.type(), er.size())
 
 graph.srcdata.update({'ft': feat_src, 'el': el})
 
+print(graph.srcdata)
+
 graph.dstdata.update({'er': er})
+
+print(graph.dstdata)
 
 # compute edge attention, el and er are a_l Wh_i and a_r Wh_j respectively.
 
