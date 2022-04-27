@@ -66,11 +66,11 @@ func = dgl.function.u_add_v('el', 'er', 'e')
 
 alldata = [graph.srcdata, graph.dstdata, graph.edata]
 
-print(alldata.type())
+print(func.lhs)
+print(func.lhs_field)
+
 
 if isinstance(func, dgl.function.BinaryMessageFunction):
-    print(func.lhs)
-    print(func.lhs_field)
     
     x = alldata[func.lhs][func.lhs_field]
     y = alldata[func.rhs][func.rhs_field]
