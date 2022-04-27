@@ -9,7 +9,7 @@ graph = dataset[0]
 
 print(graph)
 
-feat = torch.rand([g.number_of_nodes(), 32])
+feat = torch.rand([graph.number_of_nodes(), 32])
 
 
 
