@@ -98,6 +98,15 @@ class GATLayer(nn.Module):
         a = torch.mm(z2, self.attn_weight)
         return {'z': z_s, 'e': torch.relu(a)}
 
+    def reduce_func(self, nodes):
+        print("reduce:--------------------------------------------")
+        print('mailbox-e:', nodes.mailbox['e'].size())
+        alpha = torch.softmax(nodes.mailbox['e'], dim=1)
+        print('alpha size', alpha.size())
+        h = torch.sum(alpha * nodes.mailbox['z'], dim=1)
+        print('h size', alpha.size())
+        return {'h': h}
+        
     def forward(self, g, feature, compile=False):
         g.ndata['h'] = feature
         if compile:
@@ -114,7 +123,7 @@ class GATLayer(nn.Module):
             #     self.fc_weight, self.attn_weight))
         else:
             print('run false')
-            g.update_all(self.message_func, reduce_func)
+            g.update_all(self.message_func, self.reduce_func)
             exit()
         return g.ndata.pop('h')
 
