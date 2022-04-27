@@ -98,6 +98,7 @@ class GATLayer(nn.Module):
             update_all(g, mpdfg, msg_params=(
                 self.fc_weight, self.attn_weight))
         else:
+            print('run false')
             g.update_all(self.message_func, reduce_func)
         return g.ndata.pop('h')
 
@@ -135,7 +136,7 @@ def profile(dataset, feat_dim, repeat=1000):
         print(type(g.DGLGraph))
         with torch.no_grad():
             compile_res = bench(net=net, net_params=(
-                g, features, True), tag="3-Graphiler", nvprof=False, repeat=repeat, memory=True, log=log)
+                g, features, False), tag="3-Graphiler", nvprof=False, repeat=repeat, memory=True, log=log)
             res = bench(net=net, net_params=(g, features, False),
                         tag="0-DGL-UDF", nvprof=False, repeat=repeat, memory=True, log=log)
             check_equal(compile_res, res)
