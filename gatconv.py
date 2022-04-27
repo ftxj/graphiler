@@ -30,9 +30,9 @@ if isinstance(feat, tuple):
     h_dst = feat_drop(feat[1])
 else:
     h_src = h_dst = feat_drop(feat)
-    print('h_src : ', h_src.type)
+    print('h_src : ', h_src)
     
-    print('h_dst : ',h_dst.type)
+    print('h_dst : ',h_dst)
     
     feat_src = feat_dst = fc(h_src).view(-1, num_heads, out_feats)
 
