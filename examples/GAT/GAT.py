@@ -61,7 +61,7 @@ def reduce_func(nodes: NodeBatchDummy):
     return {'h': h}
 
 
-mpdfg = mpdfg_builder(message_func, reduce_func, opt_level=2)
+mpdfg = mpdfg_builder(message_func, reduce_func, opt_level=0)
 
 print("TorchScript Code:")
 
