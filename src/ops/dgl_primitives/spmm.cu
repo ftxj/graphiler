@@ -97,7 +97,7 @@ void SpMMCsr(
         cusparseDnMatDescr_t matB, matC;
         std::cout << "MatA size = " << m << " x " << k << std::endl;
         std::cout << "MatB size = " << k << " x " << n << std::endl;
-        std::cout << "MatA size = " << m << " x " << n << std::endl;
+        std::cout << "MatC size = " << m << " x " << n << std::endl;
         constexpr auto dtype = dgl::runtime::cuda_dtype<DType>::value;
         constexpr auto idtype = dgl::runtime::cusparse_idtype<IdType>::value;
         CUSPARSE_CALL(cusparseCreateCsr(
