@@ -44,7 +44,7 @@ graph.dstdata.update({'er': er})
 
 # compute edge attention, el and er are a_l Wh_i and a_r Wh_j respectively.
 
-graph.apply_edges(fn.u_add_v('el', 'er', 'e'))
+graph.apply_edges(dgl.function.u_add_v('el', 'er', 'e'))
 
 
 e = leaky_relu(graph.edata.pop('e'))
