@@ -453,6 +453,11 @@ void MPDFGBuilder(std::shared_ptr<MPDFGAnnotation> &mpdfg,
 
   // message creation stage
   parse_stage(mpdfg, mpdfg_params, msg_block, Stage::Creation);
+
+
+  std::cout << "After Merge Message MP-DFG=:" << std::endl;
+  mpdfg->DFG->print(std::cout);
+
   VALUE_MAP.clear();
   VALUE_TO_BROADCAST.clear();
   // message aggregation stage
