@@ -177,9 +177,9 @@ def profile(dataset, feat_dim, repeat=1000):
                   tag="1-DGL-primitives", nvprof=False, repeat=repeat, memory=True, log=log)
         del g, net_dgl
 
-    # run_baseline_graphiler(g, features)
+    run_baseline_graphiler(g, features)
     # run_pyg(g, features)
-    run_dgl(g, features)
+    # run_dgl(g, features)
 
     return log
 
