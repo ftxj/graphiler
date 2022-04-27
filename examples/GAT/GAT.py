@@ -158,9 +158,10 @@ def profile(dataset, feat_dim, repeat=1000):
         net_pyg = GAT_PyG(in_dim=feat_dim, hidden_dim=DEFAULT_DIM,
                           out_dim=DEFAULT_DIM).to(device)
         
-        model = torch.jit.script(model)
+        model = torch.jit.script(net_pyg)
 
         print(model.graph)
+        exit()
         
         net_pyg.eval()
         with torch.no_grad():
