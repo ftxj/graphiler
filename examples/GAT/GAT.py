@@ -66,7 +66,6 @@ mpdfg = mpdfg_builder(message_func, reduce_func, opt_level=2)
 print("TorchScript Code:")
 
 print(mpdfg.forward.code)
-exit()
 #mpdfg_compile = mpdfg_builder(message_func, reduce_func, opt_level=0)
 #mpdfg_plus_reorder = mpdfg_builder(message_func, reduce_func, opt_level=1)
 
@@ -96,12 +95,9 @@ class GATLayer(nn.Module):
 
     def reduce_func(self, nodes):
         print("reduce:--------------------------------------------")
-
         print('mailbox-e:', nodes.mailbox['e'])
         print('mailbox-e:', nodes.mailbox['e'].size())
-        
         exit()
-
         alpha = torch.softmax(nodes.mailbox['e'], dim=1)
         print('alpha size', alpha.size())
         h = torch.sum(alpha * nodes.mailbox['z'], dim=1)
