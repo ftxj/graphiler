@@ -62,6 +62,7 @@ void SpMMCsr(
             at::Tensor out, // out 
             std::vector<at::Tensor> out_aux // empty list
             ) {
+  std::cout << "SpMMCSR = " << num_rows << " x " << num_cols << std::endl;
   auto bcast = CalcBcastOff(op, ufeat, efeat);
   if (reduce == "sum") {
     if (op == "copy_lhs") { // no edge data.
@@ -84,6 +85,8 @@ void SpMMCsr(
         cusparseSpMatDescr_t matA;
         cusparseDnMatDescr_t matB, matC;
         std::cout << "MatA size = " << m << " x " << k << std::endl;
+        std::cout << "MatB size = " << k << " x " << n << std::endl;
+        std::cout << "MatA size = " << m << " x " << n << std::endl;
         constexpr auto dtype = dgl::runtime::cuda_dtype<DType>::value;
         constexpr auto idtype = dgl::runtime::cusparse_idtype<IdType>::value;
         CUSPARSE_CALL(cusparseCreateCsr(
