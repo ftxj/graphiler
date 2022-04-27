@@ -1,5 +1,5 @@
 import dgl
-import torch as th
+import torch
 from torch import nn
 
 
