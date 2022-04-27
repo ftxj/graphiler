@@ -56,16 +56,19 @@ def message_func(edges: EdgeBatchDummy, fc_weight, attn_weight):
 
 
 def reduce_func(nodes: NodeBatchDummy):
+    print("reduce:")
+    print(nodes.mailbox['e'].size())
     alpha = torch.softmax(nodes.mailbox['e'], dim=1)
+    print(alpha.size())
     h = torch.sum(alpha * nodes.mailbox['z'], dim=1)
     return {'h': h}
 
 
-mpdfg = mpdfg_builder(message_func, reduce_func, opt_level=2)
+# mpdfg = mpdfg_builder(message_func, reduce_func, opt_level=2)
 
-print("TorchScript Code:")
+# print("TorchScript Code:")
 
-print(mpdfg.forward.code)
+# print(mpdfg.forward.code)
 
 #mpdfg_compile = mpdfg_builder(message_func, reduce_func, opt_level=0)
 #mpdfg_plus_reorder = mpdfg_builder(message_func, reduce_func, opt_level=1)
@@ -105,8 +108,8 @@ class GATLayer(nn.Module):
             # else:
             print('run True')
             exit()
-            update_all(g, mpdfg, msg_params=(
-                self.fc_weight, self.attn_weight))
+            # update_all(g, mpdfg, msg_params=(
+            #     self.fc_weight, self.attn_weight))
         else:
             print('run false')
             g.update_all(self.message_func, reduce_func)
