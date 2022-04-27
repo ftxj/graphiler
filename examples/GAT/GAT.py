@@ -56,7 +56,7 @@ def message_func(edges: EdgeBatchDummy, fc_weight, attn_weight):
 
 
 def reduce_func(nodes: NodeBatchDummy):
-    print("reduce:")
+    print("reduce:--------------------------------------------")
     print(nodes.mailbox['e'].size())
     alpha = torch.softmax(nodes.mailbox['e'], dim=1)
     print(alpha.size())
@@ -82,6 +82,7 @@ class GATLayer(nn.Module):
         self.attn_weight = torch.rand(2 * out_dim, 1).to(device)
 
     def message_func(self, edges):
+        print("message:--------------------------------------------")
         print(edges.src['h'].size())
         print(edges.src)
         z_s = torch.mm(edges.src['h'], self.fc_weight)
