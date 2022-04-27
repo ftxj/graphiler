@@ -49,6 +49,7 @@ BREAK_FLAG = 2
 # e.g., self.fc_weight, compare with GATLayer.message_func for the difference
 def message_func(edges: EdgeBatchDummy, fc_weight, attn_weight):
     z_s = torch.mm(edges.src['h'], fc_weight)
+    print(z_s.size())
     z_d = torch.mm(edges.dst['h'], fc_weight)
     z2 = torch.cat([z_s, z_d], dim=1)
     a = torch.mm(z2, attn_weight)
@@ -173,8 +174,8 @@ def profile(dataset, feat_dim, repeat=1000):
         del g, net_dgl
 
     # run_baseline_graphiler(g, features)
-    run_pyg(g, features)
-    # run_dgl(g, features)
+    # run_pyg(g, features)
+    run_dgl(g, features)
 
     return log
 

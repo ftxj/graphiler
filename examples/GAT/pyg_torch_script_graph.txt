@@ -1,0 +1,791 @@
+GAT Test Begin
+benchmarking on: pubmed
+begin load data
+  NumNodes: 19717
+  NumEdges: 88651
+  NumFeats: 500
+  NumClasses: 3
+  NumTrainingSamples: 60
+  NumValidationSamples: 500
+  NumTestSamples: 1000
+Done loading data from cached files.
+Graph(num_nodes=19717, num_edges=88651,
+      ndata_schemes={'feat': Scheme(shape=(500,), dtype=torch.float32), 'label': Scheme(shape=(), dtype=torch.int64), 'test_mask': Scheme(shape=(), dtype=torch.bool), 'val_mask': Scheme(shape=(), dtype=torch.bool), 'train_mask': Scheme(shape=(), dtype=torch.bool)}
+      edata_schemes={})
+<class 'dgl.heterograph.DGLHeteroGraph'>
+Run RyG
+
+graph(%self : __torch__.GAT_PyG,
+      %x.1 : Tensor,
+      %adj.1 : Tensor):
+  %3 : None = prim::Constant()
+  %4 : __torch__.GATConvJittable_600650.GATConvJittable_600650 = prim::GetAttr[name="layer1"](%self)
+  %6 : int = prim::Constant[value=6]()
+  %7 : int = prim::Constant[value=3]()
+  %8 : int = prim::Constant[value=5]()
+  %9 : str = prim::Constant[value="Encountered tensor with size {} in dimension {}, but expected size {}."]() # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:135:17
+  %10 : str = prim::Constant[value="source_to_target"]() # /tmp/root_pyg/tmpxjp2mcgu.py:106:38
+  %11 : (int, int) = prim::Constant[value=(1, 0)]()
+  %12 : (int, int) = prim::Constant[value=(0, 1)]()
+  %13 : str = prim::Constant[value="dropout probability has to be between 0 and 1, but got {}"]() # /opt/conda/lib/python3.8/site-packages/torch/nn/functional.py:1075:25
+  %14 : float = prim::Constant[value=0.]() # /opt/conda/lib/python3.8/site-packages/torch/nn/functional.py:1074:11
+  %15 : float = prim::Constant[value=1.]() # /opt/conda/lib/python3.8/site-packages/torch/nn/functional.py:1074:22
+  %16 : float = prim::Constant[value=9.9999999999999998e-17]() # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/softmax.py:49:28
+  %17 : bool = prim::Constant[value=1]() # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:152:7
+  %18 : str = prim::Constant[value="mul"]() # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:154:17
+  %19 : str = prim::Constant[value=""]() # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:109:8
+  %20 : str = prim::Constant[value="max"]() # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:106:19
+  %21 : str = prim::Constant[value="min"]() # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:104:19
+  %22 : str = prim::Constant[value="mean"]() # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:102:19
+  %23 : str = prim::Constant[value="add"]() # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:100:36
+  %24 : str = prim::Constant[value="sum"]() # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:100:17
+  %25 : int = prim::Constant[value=4]() # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/loop.py:84:42
+  %26 : int = prim::Constant[value=9223372036854775807]()
+  %27 : int = prim::Constant[value=0]() # /tmp/root_pyg/tmpxjp2mcgu.py:272:39
+  %28 : int = prim::Constant[value=1]() # /tmp/root_pyg/tmpxjp2mcgu.py:252:50
+  %29 : int = prim::Constant[value=2]() # /tmp/root_pyg/tmpxjp2mcgu.py:251:30
+  %30 : str = prim::Constant[value="AssertionError: Static graphs not supported in \'GATConv\'"]()
+  %31 : int = prim::Constant[value=-1]() # /tmp/root_pyg/tmpxjp2mcgu.py:252:49
+  %32 : bool = prim::Constant[value=0]()
+  %33 : None = prim::Constant()
+  %34 : str = prim::Constant[value="AssertionError: "]()
+  %H.1 : int = prim::GetAttr[name="heads"](%4)
+  %C.1 : int = prim::GetAttr[name="out_channels"](%4)
+  %37 : int = aten::dim(%x.1) # /tmp/root_pyg/tmpxjp2mcgu.py:251:19
+  %38 : bool = aten::eq(%37, %29) # /tmp/root_pyg/tmpxjp2mcgu.py:251:19
+   = prim::If(%38) # /tmp/root_pyg/tmpxjp2mcgu.py:251:12
+    block0():
+      -> ()
+    block1():
+       = prim::RaiseException(%30) # /tmp/root_pyg/tmpxjp2mcgu.py:251:12
+      -> ()
+  %39 : __torch__.torch_geometric.nn.dense.linear.Linear = prim::GetAttr[name="lin_src"](%4)
+  %40 : Tensor = prim::GetAttr[name="weight"](%39)
+  %41 : Tensor = aten::linear(%x.1, %40, %33) # /opt/conda/lib/python3.8/site-packages/torch/nn/functional.py:1753:11
+  %42 : int[] = prim::ListConstruct(%31, %H.1, %C.1)
+  %43 : Tensor = aten::view(%41, %42) # /tmp/root_pyg/tmpxjp2mcgu.py:252:28
+  %x.7 : (Tensor, Tensor) = prim::TupleConstruct(%43, %43)
+  %45 : Tensor = prim::GetAttr[name="att_src"](%4)
+  %46 : Tensor = aten::mul(%43, %45) # /tmp/root_pyg/tmpxjp2mcgu.py:264:21
+  %47 : int[] = prim::ListConstruct(%31)
+  %alpha_src.1 : Tensor = aten::sum(%46, %47, %32, %33) # /tmp/root_pyg/tmpxjp2mcgu.py:264:21
+  %49 : Tensor = prim::GetAttr[name="att_dst"](%4)
+  %50 : Tensor = aten::mul(%43, %49) # /tmp/root_pyg/tmpxjp2mcgu.py:265:48
+  %51 : int[] = prim::ListConstruct(%31)
+  %alpha_dst.1 : Tensor = aten::sum(%50, %51, %32, %33) # /tmp/root_pyg/tmpxjp2mcgu.py:265:48
+  %alpha.2 : (Tensor, Tensor) = prim::TupleConstruct(%alpha_src.1, %alpha_dst.1)
+  %54 : bool = prim::GetAttr[name="add_self_loops"](%4)
+  %edge_index : Tensor, %size : (int, int)? = prim::If(%54) # /tmp/root_pyg/tmpxjp2mcgu.py:268:8
+    block0():
+      %num_nodes.1 : int = aten::size(%43, %27) # /tmp/root_pyg/tmpxjp2mcgu.py:272:28, num_nodes = x_src.size(0)
+      %58 : int = aten::size(%43, %27) # /tmp/root_pyg/tmpxjp2mcgu.py:274:47
+      %num_nodes.3 : int = prim::min(%num_nodes.1, %58) # /tmp/root_pyg/tmpxjp2mcgu.py:274:32, num_nodes = min(num_nodes, x_dst.size(0))
+      %60 : bool = aten::__isnot__(%3, %33) # /tmp/root_pyg/tmpxjp2mcgu.py:275:41, if x_dst is not None
+      %num_nodes.5 : int, %size.8 : (int, int)? = prim::If(%60) # /tmp/root_pyg/tmpxjp2mcgu.py:275:28
+        block0():
+          %size.7 : (int, int) = prim::unchecked_cast(%3)
+          %64 : int, %65 : int = prim::TupleUnpack(%size.7)
+          %66 : int[] = prim::ListConstruct(%64, %65)
+          %67 : int = prim::min(%66) # /tmp/root_pyg/tmpxjp2mcgu.py:275:28
+          -> (%67, %size.7)
+        block1():
+          -> (%num_nodes.3, %3)
+      %68 : Tensor = aten::select(%adj.1, %27, %27) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/loop.py:32:11
+      %69 : Tensor = aten::select(%adj.1, %27, %28) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/loop.py:32:28
+      %mask.1 : Tensor = aten::ne(%68, %69) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/loop.py:32:11
+      %71 : Tensor = aten::slice(%adj.1, %27, %27, %26, %28) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/loop.py:33:17
+      %72 : Tensor?[] = prim::ListConstruct(%33, %mask.1)
+      %edge_index.5 : Tensor = aten::index(%71, %72) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/loop.py:33:17
+      %74 : (Tensor, None) = prim::TupleConstruct(%edge_index.5, %33)
+      %edge_index.7 : Tensor, %76 : Tensor? = prim::TupleUnpack(%74)
+      %77 : Device = prim::device(%edge_index.7)
+      %loop_index.1 : Tensor = aten::arange(%27, %num_nodes.5, %25, %33, %77, %33) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/loop.py:84:17
+      %79 : Tensor = aten::unsqueeze(%loop_index.1, %27) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/loop.py:85:17
+      %80 : int[] = prim::ListConstruct(%29, %28)
+      %loop_index.3 : Tensor = aten::repeat(%79, %80) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/loop.py:85:17
+      %82 : Tensor[] = prim::ListConstruct(%edge_index.7, %loop_index.3)
+      %edge_index.6 : Tensor = aten::cat(%82, %28) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/loop.py:92:17
+      %84 : (Tensor, Tensor?) = prim::TupleConstruct(%edge_index.6, %33)
+      %edge_index.10 : Tensor, %86 : Tensor? = prim::TupleUnpack(%84)
+      -> (%edge_index.10, %size.8)
+    block1():
+      -> (%adj.1, %3)
+  %the_size.13 : int?[] = prim::ListConstruct(%33, %33)
+  %88 : int = prim::dtype(%edge_index)
+  %89 : bool = aten::eq(%88, %25) # /tmp/root_pyg/tmpxjp2mcgu.py:45:19
+   = prim::If(%89) # /tmp/root_pyg/tmpxjp2mcgu.py:45:12
+    block0():
+      -> ()
+    block1():
+       = prim::RaiseException(%34) # /tmp/root_pyg/tmpxjp2mcgu.py:45:12
+      -> ()
+  %90 : int = aten::dim(%edge_index) # /tmp/root_pyg/tmpxjp2mcgu.py:46:19
+  %91 : bool = aten::eq(%90, %29) # /tmp/root_pyg/tmpxjp2mcgu.py:46:19
+   = prim::If(%91) # /tmp/root_pyg/tmpxjp2mcgu.py:46:12
+    block0():
+      -> ()
+    block1():
+       = prim::RaiseException(%34) # /tmp/root_pyg/tmpxjp2mcgu.py:46:12
+      -> ()
+  %92 : int = aten::size(%edge_index, %27) # /tmp/root_pyg/tmpxjp2mcgu.py:47:19
+  %93 : bool = aten::eq(%92, %29) # /tmp/root_pyg/tmpxjp2mcgu.py:47:19
+   = prim::If(%93) # /tmp/root_pyg/tmpxjp2mcgu.py:47:12
+    block0():
+      -> ()
+    block1():
+       = prim::RaiseException(%34) # /tmp/root_pyg/tmpxjp2mcgu.py:47:12
+      -> ()
+  %94 : bool = aten::__isnot__(%size, %33) # /tmp/root_pyg/tmpxjp2mcgu.py:48:15
+   = prim::If(%94) # /tmp/root_pyg/tmpxjp2mcgu.py:48:12
+    block0():
+      %size.5 : (int, int) = prim::unchecked_cast(%size)
+      %96 : int = prim::TupleIndex(%size.5, %27)
+      %97 : int?[] = aten::_set_item(%the_size.13, %27, %96) # /tmp/root_pyg/tmpxjp2mcgu.py:49:16
+      %98 : int = prim::TupleIndex(%size.5, %28)
+      %99 : int?[] = aten::_set_item(%the_size.13, %28, %98) # /tmp/root_pyg/tmpxjp2mcgu.py:50:16
+      -> ()
+    block1():
+      -> ()
+  %in_kwargs.1 : NamedTuple(x : (Tensor, Tensor?), alpha : (Tensor, Tensor?)) = prim::TupleConstruct(%x.7, %alpha.2) # /tmp/root_pyg/tmpxjp2mcgu.py:189:20
+  %101 : str = prim::GetAttr[name="flow"](%4)
+  %102 : bool = aten::eq(%101, %10) # /tmp/root_pyg/tmpxjp2mcgu.py:106:25
+  %103 : (int, int) = prim::If(%102) # /tmp/root_pyg/tmpxjp2mcgu.py:106:15
+    block0():
+      -> (%11)
+    block1():
+      -> (%12)
+  %i.1 : int, %j.1 : int = prim::TupleUnpack(%103)
+  %data.1 : (Tensor, Tensor?) = prim::TupleIndex(%in_kwargs.1, %27)
+  %tmp.1 : Tensor? = prim::TupleIndex(%data.1, %28)
+  %108 : bool = prim::isinstance[types=[Tensor]](%tmp.1)
+   = prim::If(%108) # /tmp/root_pyg/tmpxjp2mcgu.py:113:12
+    block0():
+      %tmp.4 : Tensor = prim::unchecked_cast(%tmp.1)
+      %the_size.2 : int? = aten::__getitem__(%the_size.13, %28) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:130:19
+      %111 : bool = aten::__is__(%the_size.2, %33) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:131:11
+       = prim::If(%111) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:131:8
+        block0():
+          %112 : int = prim::GetAttr[name="node_dim"](%4)
+          %113 : int = aten::size(%tmp.4, %112) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:132:24
+          %114 : int?[] = aten::_set_item(%the_size.13, %28, %113) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:132:12
+          -> ()
+        block1():
+          %the_size.5 : int = prim::unchecked_cast(%the_size.2)
+          %116 : int = prim::GetAttr[name="node_dim"](%4)
+          %117 : int = aten::size(%tmp.4, %116) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:25
+          %118 : bool = aten::ne(%the_size.5, %117) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:13
+           = prim::If(%118) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:8
+            block0():
+              %119 : int = prim::GetAttr[name="node_dim"](%4)
+              %120 : int = aten::size(%tmp.4, %119) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:135:49
+              %121 : int = prim::GetAttr[name="node_dim"](%4)
+              %122 : str = aten::format(%9, %120, %121, %the_size.5) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:135:17
+               = prim::RaiseException(%122) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:134:12
+              -> ()
+            block1():
+              -> ()
+          -> ()
+      -> ()
+    block1():
+      -> ()
+  %x_j.1 : Tensor = prim::TupleIndex(%data.1, %27)
+  %the_size.3 : int? = aten::__getitem__(%the_size.13, %27) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:130:19
+  %125 : bool = aten::__is__(%the_size.3, %33) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:131:11
+   = prim::If(%125) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:131:8
+    block0():
+      %126 : int = prim::GetAttr[name="node_dim"](%4)
+      %127 : int = aten::size(%x_j.1, %126) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:132:24
+      %128 : int?[] = aten::_set_item(%the_size.13, %27, %127) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:132:12
+      -> ()
+    block1():
+      %the_size.6 : int = prim::unchecked_cast(%the_size.3)
+      %130 : int = prim::GetAttr[name="node_dim"](%4)
+      %131 : int = aten::size(%x_j.1, %130) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:25
+      %132 : bool = aten::ne(%the_size.6, %131) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:13
+       = prim::If(%132) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:8
+        block0():
+          %133 : int = prim::GetAttr[name="node_dim"](%4)
+          %134 : int = aten::size(%x_j.1, %133) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:135:49
+          %135 : int = prim::GetAttr[name="node_dim"](%4)
+          %136 : str = aten::format(%9, %134, %135, %the_size.6) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:135:17
+           = prim::RaiseException(%136) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:134:12
+          -> ()
+        block1():
+          -> ()
+      -> ()
+  %index.2 : Tensor = aten::select(%edge_index, %27, %j.1) # /tmp/root_pyg/tmpxjp2mcgu.py:82:20
+  %138 : int = prim::GetAttr[name="node_dim"](%4)
+  %x_j.7 : Tensor = aten::index_select(%x_j.1, %138, %index.2) # /tmp/root_pyg/tmpxjp2mcgu.py:83:19
+  %data.6 : (Tensor, Tensor?) = prim::TupleIndex(%in_kwargs.1, %28)
+  %tmp.10 : Tensor? = prim::TupleIndex(%data.6, %28)
+  %142 : bool = prim::isinstance[types=[Tensor]](%tmp.10)
+   = prim::If(%142) # /tmp/root_pyg/tmpxjp2mcgu.py:126:12
+    block0():
+      %tmp.13 : Tensor = prim::unchecked_cast(%tmp.10)
+      %the_size.7 : int? = aten::__getitem__(%the_size.13, %28) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:130:19
+      %145 : bool = aten::__is__(%the_size.7, %33) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:131:11
+       = prim::If(%145) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:131:8
+        block0():
+          %146 : int = prim::GetAttr[name="node_dim"](%4)
+          %147 : int = aten::size(%tmp.13, %146) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:132:24
+          %148 : int?[] = aten::_set_item(%the_size.13, %28, %147) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:132:12
+          -> ()
+        block1():
+          %the_size.8 : int = prim::unchecked_cast(%the_size.7)
+          %150 : int = prim::GetAttr[name="node_dim"](%4)
+          %151 : int = aten::size(%tmp.13, %150) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:25
+          %152 : bool = aten::ne(%the_size.8, %151) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:13
+           = prim::If(%152) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:8
+            block0():
+              %153 : int = prim::GetAttr[name="node_dim"](%4)
+              %154 : int = aten::size(%tmp.13, %153) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:135:49
+              %155 : int = prim::GetAttr[name="node_dim"](%4)
+              %156 : str = aten::format(%9, %154, %155, %the_size.8) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:135:17
+               = prim::RaiseException(%156) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:134:12
+              -> ()
+            block1():
+              -> ()
+          -> ()
+      -> ()
+    block1():
+      -> ()
+  %alpha_j.1 : Tensor = prim::TupleIndex(%data.6, %27)
+  %the_size.9 : int? = aten::__getitem__(%the_size.13, %27) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:130:19
+  %159 : bool = aten::__is__(%the_size.9, %33) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:131:11
+   = prim::If(%159) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:131:8
+    block0():
+      %160 : int = prim::GetAttr[name="node_dim"](%4)
+      %161 : int = aten::size(%alpha_j.1, %160) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:132:24
+      %162 : int?[] = aten::_set_item(%the_size.13, %27, %161) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:132:12
+      -> ()
+    block1():
+      %the_size.10 : int = prim::unchecked_cast(%the_size.9)
+      %164 : int = prim::GetAttr[name="node_dim"](%4)
+      %165 : int = aten::size(%alpha_j.1, %164) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:25
+      %166 : bool = aten::ne(%the_size.10, %165) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:13
+       = prim::If(%166) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:8
+        block0():
+          %167 : int = prim::GetAttr[name="node_dim"](%4)
+          %168 : int = aten::size(%alpha_j.1, %167) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:135:49
+          %169 : int = prim::GetAttr[name="node_dim"](%4)
+          %170 : str = aten::format(%9, %168, %169, %the_size.10) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:135:17
+           = prim::RaiseException(%170) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:134:12
+          -> ()
+        block1():
+          -> ()
+      -> ()
+  %index.7 : Tensor = aten::select(%edge_index, %27, %j.1) # /tmp/root_pyg/tmpxjp2mcgu.py:82:20
+  %172 : int = prim::GetAttr[name="node_dim"](%4)
+  %alpha_j.7 : Tensor = aten::index_select(%alpha_j.1, %172, %index.7) # /tmp/root_pyg/tmpxjp2mcgu.py:83:19
+  %data.11 : (Tensor, Tensor?) = prim::TupleIndex(%in_kwargs.1, %28)
+  %tmp.19 : Tensor = prim::TupleIndex(%data.11, %27)
+  %the_size.11 : int? = aten::__getitem__(%the_size.13, %27) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:130:19
+  %177 : bool = aten::__is__(%the_size.11, %33) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:131:11
+   = prim::If(%177) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:131:8
+    block0():
+      %178 : int = prim::GetAttr[name="node_dim"](%4)
+      %179 : int = aten::size(%tmp.19, %178) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:132:24
+      %180 : int?[] = aten::_set_item(%the_size.13, %27, %179) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:132:12
+      -> ()
+    block1():
+      %the_size.12 : int = prim::unchecked_cast(%the_size.11)
+      %182 : int = prim::GetAttr[name="node_dim"](%4)
+      %183 : int = aten::size(%tmp.19, %182) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:25
+      %184 : bool = aten::ne(%the_size.12, %183) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:13
+       = prim::If(%184) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:8
+        block0():
+          %185 : int = prim::GetAttr[name="node_dim"](%4)
+          %186 : int = aten::size(%tmp.19, %185) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:135:49
+          %187 : int = prim::GetAttr[name="node_dim"](%4)
+          %188 : str = aten::format(%9, %186, %187, %the_size.12) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:135:17
+           = prim::RaiseException(%188) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:134:12
+          -> ()
+        block1():
+          -> ()
+      -> ()
+  %alpha_i.2 : Tensor? = prim::TupleIndex(%data.11, %28)
+  %190 : bool = prim::isinstance[types=[Tensor]](%alpha_i.2)
+  %alpha_i : Tensor? = prim::If(%190) # /tmp/root_pyg/tmpxjp2mcgu.py:144:8
+    block0():
+      %alpha_i.5 : Tensor = prim::unchecked_cast(%alpha_i.2)
+      %the_size.1 : int? = aten::__getitem__(%the_size.13, %28) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:130:19
+      %194 : bool = aten::__is__(%the_size.1, %33) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:131:11
+       = prim::If(%194) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:131:8
+        block0():
+          %195 : int = prim::GetAttr[name="node_dim"](%4)
+          %196 : int = aten::size(%alpha_i.5, %195) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:132:24
+          %197 : int?[] = aten::_set_item(%the_size.13, %28, %196) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:132:12
+          -> ()
+        block1():
+          %the_size.4 : int = prim::unchecked_cast(%the_size.1)
+          %199 : int = prim::GetAttr[name="node_dim"](%4)
+          %200 : int = aten::size(%alpha_i.5, %199) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:25
+          %201 : bool = aten::ne(%the_size.4, %200) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:13
+           = prim::If(%201) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:133:8
+            block0():
+              %202 : int = prim::GetAttr[name="node_dim"](%4)
+              %203 : int = aten::size(%alpha_i.5, %202) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:135:49
+              %204 : int = prim::GetAttr[name="node_dim"](%4)
+              %205 : str = aten::format(%9, %203, %204, %the_size.4) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:135:17
+               = prim::RaiseException(%205) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:134:12
+              -> ()
+            block1():
+              -> ()
+          -> ()
+      %index.1 : Tensor = aten::select(%edge_index, %27, %i.1) # /tmp/root_pyg/tmpxjp2mcgu.py:82:20
+      %207 : int = prim::GetAttr[name="node_dim"](%4)
+      %alpha_i.9 : Tensor = aten::index_select(%alpha_i.5, %207, %index.1) # /tmp/root_pyg/tmpxjp2mcgu.py:83:19
+      -> (%alpha_i.9)
+    block1():
+      -> (%alpha_i.2)
+  %edge_index_i.1 : Tensor = aten::select(%edge_index, %27, %i.1) # /tmp/root_pyg/tmpxjp2mcgu.py:155:27
+  %210 : int? = aten::__getitem__(%the_size.13, %28) # /tmp/root_pyg/tmpxjp2mcgu.py:171:28
+  %211 : bool = aten::__isnot__(%210, %33) # /tmp/root_pyg/tmpxjp2mcgu.py:171:28
+  %size_i.1 : int? = prim::If(%211) # /tmp/root_pyg/tmpxjp2mcgu.py:171:17
+    block0():
+      %213 : int? = aten::__getitem__(%the_size.13, %28) # /tmp/root_pyg/tmpxjp2mcgu.py:171:17
+      -> (%213)
+    block1():
+      %214 : int? = aten::__getitem__(%the_size.13, %27) # /tmp/root_pyg/tmpxjp2mcgu.py:171:53
+      -> (%214)
+  %kwargs.1 : NamedTuple(x_j : Tensor, alpha_j : Tensor, alpha_i : Tensor?, index : Tensor, ptr : Tensor?, size_i : int?, dim_size : int?) = prim::TupleConstruct(%x_j.7, %alpha_j.7, %alpha_i, %edge_index_i.1, %33, %size_i.1, %size_i.1) # /tmp/root_pyg/tmpxjp2mcgu.py:175:15
+  %216 : int? = prim::TupleIndex(%kwargs.1, %8)
+  %217 : Tensor = prim::TupleIndex(%kwargs.1, %7)
+  %218 : Tensor = prim::TupleIndex(%kwargs.1, %27)
+  %219 : Tensor = prim::TupleIndex(%kwargs.1, %28)
+  %220 : Tensor? = prim::TupleIndex(%kwargs.1, %25)
+  %221 : Tensor? = prim::TupleIndex(%kwargs.1, %29)
+  %222 : bool = aten::__is__(%221, %33) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/gat_conv.py:188:27
+  %alpha.1 : Tensor = prim::If(%222) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/gat_conv.py:188:16
+    block0():
+      -> (%219)
+    block1():
+      %alpha_i.4 : Tensor = prim::unchecked_cast(%221)
+      %225 : Tensor = aten::add(%219, %alpha_i.4, %28) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/gat_conv.py:188:48
+      -> (%225)
+  %226 : float = prim::GetAttr[name="negative_slope"](%4)
+  %result.2 : Tensor = aten::leaky_relu(%alpha.1, %226) # /opt/conda/lib/python3.8/site-packages/torch/nn/functional.py:1378:17
+  %228 : bool = aten::__isnot__(%220, %33) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/softmax.py:32:7
+  %out_sum : Tensor, %out : Tensor = prim::If(%228) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/softmax.py:32:4
+    block0():
+      %ptr.5 : Tensor = prim::unchecked_cast(%220)
+      %232 : int[] = prim::ListConstruct(%28)
+      %233 : int[] = aten::mul(%232, %27) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/softmax.py:34:16
+      %234 : int[] = prim::ListConstruct(%31)
+      %size.4 : int[] = aten::add(%233, %234) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/softmax.py:34:16
+      %ptr.8 : Tensor = aten::view(%ptr.5, %size.4) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/softmax.py:35:14
+      %237 : Tensor, %238 : Tensor = torch_scatter::segment_max_csr(%result.2, %ptr.8, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:32:11
+      %239 : NamedTuple(_0 : Tensor, _1 : Tensor) = prim::TupleConstruct(%237, %238)
+      %240 : Tensor = prim::TupleIndex(%239, %27)
+      %src_max.1 : Tensor = torch_scatter::gather_csr(%240, %ptr.8, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:114:11
+      %242 : Tensor = aten::sub(%result.2, %src_max.1, %28) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/softmax.py:37:15
+      %out.1 : Tensor = aten::exp(%242) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/softmax.py:37:15
+      %244 : Tensor = torch_scatter::segment_sum_csr(%out.1, %ptr.8, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:8:11
+      %out_sum.1 : Tensor = torch_scatter::gather_csr(%244, %ptr.8, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:114:11
+      -> (%out_sum.1, %out.1)
+    block1():
+      %246 : bool = aten::__isnot__(%216, %33) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/num_nodes.py:22:7
+      %N.1 : int = prim::If(%246) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/num_nodes.py:22:4
+        block0():
+          %num_nodes.4 : int = prim::unchecked_cast(%216)
+          -> (%num_nodes.4)
+        block1():
+          %249 : int = aten::numel(%217) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/num_nodes.py:25:44
+          %250 : bool = aten::gt(%249, %27) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/num_nodes.py:25:44
+          %251 : int = prim::If(%250) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/num_nodes.py:25:15
+            block0():
+              %252 : Tensor = aten::max(%217) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/num_nodes.py:25:19
+              %253 : int = aten::Int(%252) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/num_nodes.py:25:15
+              %254 : int = aten::add(%253, %28) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/num_nodes.py:25:15
+              -> (%254)
+            block1():
+              -> (%27)
+          -> (%251)
+      %255 : Tensor, %256 : Tensor = torch_scatter::scatter_max(%result.2, %217, %27, %33, %N.1) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:73:11
+      %257 : NamedTuple(_0 : Tensor, _1 : Tensor) = prim::TupleConstruct(%255, %256)
+      %258 : Tensor = prim::TupleIndex(%257, %27)
+      %src_max.5 : Tensor = aten::index_select(%258, %27, %217) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/softmax.py:42:18
+      %260 : Tensor = aten::sub(%result.2, %src_max.5, %28) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/softmax.py:43:15
+      %out.9 : Tensor = aten::exp(%260) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/softmax.py:43:15
+      %262 : int = aten::dim(%217) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:19
+      %263 : int = aten::dim(%out.9) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:30
+      %264 : int = aten::__range_length(%262, %263, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:4
+      %src.32 : Tensor = prim::Loop(%264, %17, %217) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:4
+        block0(%266 : int, %src.31 : Tensor):
+          %src.33 : Tensor = aten::unsqueeze(%src.31, %31) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:11:14
+          -> (%17, %src.33)
+      %index.6 : Tensor = aten::expand_as(%src.32, %out.9) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:12:10
+      %270 : int[] = aten::size(%out.9) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:13:20
+      %size.6 : int[] = aten::list(%270) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:13:15
+      %272 : int[] = aten::_set_item(%size.6, %27, %N.1) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:15:12
+      %273 : int = prim::dtype(%out.9)
+      %274 : Device = prim::device(%out.9)
+      %out.7 : Tensor = aten::zeros(%size.6, %273, %33, %274, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:20:14
+      %276 : Tensor = aten::scatter_add_(%out.7, %27, %index.6, %out.9) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:21:15
+      %out_sum.4 : Tensor = aten::index_select(%276, %27, %217) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/softmax.py:45:18
+      -> (%out_sum.4, %out.9)
+  %278 : Tensor = aten::add(%out_sum, %16, %28) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/softmax.py:49:18
+  %alpha.5 : Tensor = aten::div(%out, %278) # /opt/conda/lib/python3.8/site-packages/torch_geometric/utils/softmax.py:49:11
+   = prim::SetAttr[name="_alpha"](%4, %alpha.5)
+  %280 : float = prim::GetAttr[name="dropout"](%4)
+  %281 : bool = prim::GetAttr[name="training"](%4)
+  %282 : bool = aten::lt(%280, %14) # /opt/conda/lib/python3.8/site-packages/torch/nn/functional.py:1074:7
+  %283 : bool = prim::If(%282) # /opt/conda/lib/python3.8/site-packages/torch/nn/functional.py:1074:7
+    block0():
+      -> (%17)
+    block1():
+      %284 : bool = aten::gt(%280, %15) # /opt/conda/lib/python3.8/site-packages/torch/nn/functional.py:1074:18
+      -> (%284)
+   = prim::If(%283) # /opt/conda/lib/python3.8/site-packages/torch/nn/functional.py:1074:4
+    block0():
+      %285 : str = aten::format(%13, %280) # /opt/conda/lib/python3.8/site-packages/torch/nn/functional.py:1075:25
+       = prim::RaiseException(%285) # /opt/conda/lib/python3.8/site-packages/torch/nn/functional.py:1075:8
+      -> ()
+    block1():
+      -> ()
+  %286 : Tensor = aten::dropout(%alpha.5, %280, %281) # /opt/conda/lib/python3.8/site-packages/torch/nn/functional.py:1076:60
+  %287 : Tensor = aten::unsqueeze(%286, %31) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/gat_conv.py:194:21
+  %out.2 : Tensor = aten::mul(%218, %287) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/gat_conv.py:194:15
+  %289 : Tensor? = prim::TupleIndex(%kwargs.1, %25)
+  %290 : int? = prim::TupleIndex(%kwargs.1, %6)
+  %291 : Tensor = prim::TupleIndex(%kwargs.1, %7)
+  %292 : bool = aten::__isnot__(%289, %33) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:335:11
+  %out.8 : Tensor = prim::If(%292) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:335:8
+    block0():
+      %ptr.4 : Tensor = prim::unchecked_cast(%289)
+      %295 : int = prim::GetAttr[name="node_dim"](%4)
+      %296 : int = aten::dim(%out.2) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/message_passing.py:336:59
+      %297 : bool = aten::lt(%295, %27) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/utils/helpers.py:5:33
+      %298 : int = prim::If(%297) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/utils/helpers.py:5:19
+        block0():
+          %299 : int = aten::add(%296, %295) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/utils/helpers.py:5:19
+          -> (%299)
+        block1():
+          -> (%295)
+      %ptr.7 : Tensor = prim::Loop(%298, %17, %ptr.4) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/utils/helpers.py:5:4
+        block0(%301 : int, %src.30 : Tensor):
+          %src.29 : Tensor = aten::unsqueeze(%src.30, %27) # /opt/conda/lib/python3.8/site-packages/torch_geometric/nn/conv/utils/helpers.py:6:14
+          -> (%17, %src.29)
+      %304 : str = prim::GetAttr[name="aggr"](%4)
+      %305 : Tensor = prim::Uninitialized()
+      %306 : bool = aten::eq(%304, %24) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:100:7
+      %307 : bool = prim::If(%306) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:100:7
+        block0():
+          -> (%17)
+        block1():
+          %308 : bool = aten::eq(%304, %23) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:100:26
+          -> (%308)
+      %309 : Tensor = prim::If(%307) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:100:4
+        block0():
+          %310 : Tensor = torch_scatter::segment_sum_csr(%out.2, %ptr.7, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:8:11
+          -> (%310)
+        block1():
+          %311 : bool = aten::eq(%304, %22) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:102:9
+          %312 : Tensor = prim::If(%311) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:102:4
+            block0():
+              %313 : Tensor = torch_scatter::segment_mean_csr(%out.2, %ptr.7, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:18:11
+              -> (%313)
+            block1():
+              %314 : bool = aten::eq(%304, %21) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:104:9
+              %315 : Tensor = prim::If(%314) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:104:4
+                block0():
+                  %316 : Tensor, %317 : Tensor = torch_scatter::segment_min_csr(%out.2, %ptr.7, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:25:11        
+                  %318 : NamedTuple(_0 : Tensor, _1 : Tensor) = prim::TupleConstruct(%316, %317)
+                  %319 : Tensor = prim::TupleIndex(%318, %27)
+                  -> (%319)
+                block1():
+                  %320 : bool = aten::eq(%304, %20) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:106:9
+                  %321 : Tensor = prim::If(%320) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:106:4
+                    block0():
+                      %322 : Tensor, %323 : Tensor = torch_scatter::segment_max_csr(%out.2, %ptr.7, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:32:11    
+                      %324 : NamedTuple(_0 : Tensor, _1 : Tensor) = prim::TupleConstruct(%322, %323)
+                      %325 : Tensor = prim::TupleIndex(%324, %27)
+                      -> (%325)
+                    block1():
+                       = prim::RaiseException(%19) # /opt/conda/lib/python3.8/site-packages/torch_scatter/segment_csr.py:109:8
+                      -> (%305)
+                  -> (%321)
+              -> (%315)
+          -> (%312)
+      -> (%309)
+    block1():
+      %326 : int = prim::GetAttr[name="node_dim"](%4)
+      %327 : str = prim::GetAttr[name="aggr"](%4)
+      %328 : Tensor = prim::Uninitialized()
+      %329 : bool = aten::eq(%327, %24) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:152:7
+      %330 : bool = prim::If(%329) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:152:7
+        block0():
+          -> (%17)
+        block1():
+          %331 : bool = aten::eq(%327, %23) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:152:26
+          -> (%331)
+      %332 : Tensor = prim::If(%330) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:152:4
+        block0():
+          %333 : bool = aten::lt(%326, %27) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:5:7
+          %dim.7 : int = prim::If(%333) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:5:4
+            block0():
+              %335 : int = aten::dim(%out.2) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:6:14
+              %dim.8 : int = aten::add(%335, %326) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:6:14
+              -> (%dim.8)
+            block1():
+              -> (%326)
+          %337 : int = aten::dim(%291) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:7:7
+          %338 : bool = aten::eq(%337, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:7:7
+          %src.25 : Tensor = prim::If(%338) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:7:4
+            block0():
+              %340 : int = aten::__range_length(%27, %dim.7, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:8:8
+              %src.26 : Tensor = prim::Loop(%340, %17, %291) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:8:8
+                block0(%342 : int, %src.27 : Tensor):
+                  %src.7 : Tensor = aten::unsqueeze(%src.27, %27) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:9:18
+                  -> (%17, %src.7)
+              -> (%src.26)
+            block1():
+              -> (%291)
+          %345 : int = aten::dim(%src.25) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:19
+          %346 : int = aten::dim(%out.2) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:30
+          %347 : int = aten::__range_length(%345, %346, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:4
+          %src.11 : Tensor = prim::Loop(%347, %17, %src.25) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:4
+            block0(%349 : int, %src.28 : Tensor):
+              %src.12 : Tensor = aten::unsqueeze(%src.28, %31) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:11:14
+              -> (%17, %src.12)
+          %index.5 : Tensor = aten::expand_as(%src.11, %out.2) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:12:10
+          %353 : int[] = aten::size(%out.2) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:13:20
+          %size.3 : int[] = aten::list(%353) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:13:15
+          %355 : bool = aten::__isnot__(%290, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:14:11
+           = prim::If(%355) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:14:8
+            block0():
+              %dim_size.4 : int = prim::unchecked_cast(%290)
+              %357 : int[] = aten::_set_item(%size.3, %326, %dim_size.4) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:15:12
+              -> ()
+            block1():
+              %358 : int = aten::numel(%index.5) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:16:13
+              %359 : bool = aten::eq(%358, %27) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:16:13
+               = prim::If(%359) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:16:8
+                block0():
+                  %360 : int[] = aten::_set_item(%size.3, %326, %27) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:17:12
+                  -> ()
+                block1():
+                  %361 : Tensor = aten::max(%index.5) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:19:28
+                  %362 : int = aten::Int(%361) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:19:24
+                  %363 : int = aten::add(%362, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:19:24
+                  %364 : int[] = aten::_set_item(%size.3, %326, %363) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:19:12
+                  -> ()
+              -> ()
+          %365 : int = prim::dtype(%out.2)
+          %366 : Device = prim::device(%out.2)
+          %out.6 : Tensor = aten::zeros(%size.3, %365, %33, %366, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:20:14
+          %368 : Tensor = aten::scatter_add_(%out.6, %326, %index.5, %out.2) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:21:15
+          -> (%368)
+        block1():
+          %369 : bool = aten::eq(%327, %18) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:154:7
+          %370 : Tensor = prim::If(%369) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:154:4
+            block0():
+              %371 : Tensor = torch_scatter::scatter_mul(%out.2, %291, %326, %33, %290) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:35:11
+              -> (%371)
+            block1():
+              %372 : bool = aten::eq(%327, %22) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:156:9
+              %373 : Tensor = prim::If(%372) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:156:4
+                block0():
+                  %374 : bool = aten::lt(%326, %27) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:5:7
+                  %dim.2 : int = prim::If(%374) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:5:4
+                    block0():
+                      %376 : int = aten::dim(%out.2) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:6:14
+                      %dim.5 : int = aten::add(%376, %326) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:6:14
+                      -> (%dim.5)
+                    block1():
+                      -> (%326)
+                  %378 : int = aten::dim(%291) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:7:7
+                  %379 : bool = aten::eq(%378, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:7:7
+                  %src.17 : Tensor = prim::If(%379) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:7:4
+                    block0():
+                      %381 : int = aten::__range_length(%27, %dim.2, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:8:8
+                      %src.18 : Tensor = prim::Loop(%381, %17, %291) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:8:8
+                        block0(%383 : int, %src.19 : Tensor):
+                          %src.5 : Tensor = aten::unsqueeze(%src.19, %27) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:9:18
+                          -> (%17, %src.5)
+                      -> (%src.18)
+                    block1():
+                      -> (%291)
+                  %386 : int = aten::dim(%src.17) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:19
+                  %387 : int = aten::dim(%out.2) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:30
+                  %388 : int = aten::__range_length(%386, %387, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:4
+                  %src.2 : Tensor = prim::Loop(%388, %17, %src.17) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:4
+                    block0(%390 : int, %src.20 : Tensor):
+                      %src.9 : Tensor = aten::unsqueeze(%src.20, %31) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:11:14
+                      -> (%17, %src.9)
+                  %index.4 : Tensor = aten::expand_as(%src.2, %out.2) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:12:10
+                  %394 : int[] = aten::size(%out.2) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:13:20
+                  %size.2 : int[] = aten::list(%394) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:13:15
+                  %396 : bool = aten::__isnot__(%290, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:14:11
+                   = prim::If(%396) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:14:8
+                    block0():
+                      %dim_size.5 : int = prim::unchecked_cast(%290)
+                      %398 : int[] = aten::_set_item(%size.2, %326, %dim_size.5) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:15:12
+                      -> ()
+                    block1():
+                      %399 : int = aten::numel(%index.4) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:16:13
+                      %400 : bool = aten::eq(%399, %27) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:16:13
+                       = prim::If(%400) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:16:8
+                        block0():
+                          %401 : int[] = aten::_set_item(%size.2, %326, %27) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:17:12
+                          -> ()
+                        block1():
+                          %402 : Tensor = aten::max(%index.4) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:19:28
+                          %403 : int = aten::Int(%402) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:19:24
+                          %404 : int = aten::add(%403, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:19:24
+                          %405 : int[] = aten::_set_item(%size.2, %326, %404) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:19:12
+                          -> ()
+                      -> ()
+                  %406 : int = prim::dtype(%out.2)
+                  %407 : Device = prim::device(%out.2)
+                  %out.5 : Tensor = aten::zeros(%size.2, %406, %33, %407, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:20:14
+                  %409 : Tensor = aten::scatter_add_(%out.5, %326, %index.4, %out.2) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:21:15
+                  %dim_size.3 : int = aten::size(%409, %326) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:43:15
+                  %411 : bool = aten::lt(%326, %27) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:46:7
+                  %index_dim.15 : int = prim::If(%411) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:46:4
+                    block0():
+                      %413 : int = aten::dim(%out.2) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:47:32
+                      %index_dim.3 : int = aten::add(%326, %413) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:47:20
+                      -> (%index_dim.3)
+                    block1():
+                      -> (%326)
+                  %415 : int = aten::dim(%291) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:48:7
+                  %416 : bool = aten::le(%415, %index_dim.15) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:48:7
+                  %index_dim : int = prim::If(%416) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:48:4
+                    block0():
+                      %418 : int = aten::dim(%291) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:49:20
+                      %index_dim.9 : int = aten::sub(%418, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:49:20
+                      -> (%index_dim.9)
+                    block1():
+                      -> (%index_dim.15)
+                  %420 : int[] = aten::size(%291) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:51:22
+                  %421 : int = prim::dtype(%out.2)
+                  %422 : Device = prim::device(%out.2)
+                  %ones.1 : Tensor = aten::ones(%420, %421, %33, %422, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:51:11
+                  %424 : bool = aten::lt(%index_dim, %27) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:5:7
+                  %dim.3 : int = prim::If(%424) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:5:4
+                    block0():
+                      %426 : int = aten::dim(%ones.1) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:6:14
+                      %dim.6 : int = aten::add(%426, %index_dim) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:6:14
+                      -> (%dim.6)
+                    block1():
+                      -> (%index_dim)
+                  %428 : int = aten::dim(%291) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:7:7
+                  %429 : bool = aten::eq(%428, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:7:7
+                  %src.21 : Tensor = prim::If(%429) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:7:4
+                    block0():
+                      %431 : int = aten::__range_length(%27, %dim.3, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:8:8
+                      %src.22 : Tensor = prim::Loop(%431, %17, %291) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:8:8
+                        block0(%433 : int, %src.23 : Tensor):
+                          %src.6 : Tensor = aten::unsqueeze(%src.23, %27) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:9:18
+                          -> (%17, %src.6)
+                      -> (%src.22)
+                    block1():
+                      -> (%291)
+                  %436 : int = aten::dim(%src.21) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:19
+                  %437 : int = aten::dim(%ones.1) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:30
+                  %438 : int = aten::__range_length(%436, %437, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:4
+                  %src.3 : Tensor = prim::Loop(%438, %17, %src.21) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:4
+                    block0(%440 : int, %src.24 : Tensor):
+                      %src.10 : Tensor = aten::unsqueeze(%src.24, %31) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:11:14
+                      -> (%17, %src.10)
+                  %index.3 : Tensor = aten::expand_as(%src.3, %ones.1) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:12:10
+                  %444 : int[] = aten::size(%ones.1) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:13:20
+                  %size.1 : int[] = aten::list(%444) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:13:15
+                  %446 : int[] = aten::_set_item(%size.1, %index_dim, %dim_size.3) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:15:12
+                  %447 : int = prim::dtype(%ones.1)
+                  %448 : Device = prim::device(%ones.1)
+                  %out.3 : Tensor = aten::zeros(%size.1, %447, %33, %448, %33) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:20:14
+                  %450 : Tensor = aten::scatter_add_(%out.3, %index_dim, %index.3, %ones.1) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:21:15
+                  %451 : Tensor = aten::lt(%450, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:53:10
+                  %452 : int = prim::dtype(%450)
+                  %453 : Device = prim::device(%450)
+                  %454 : Tensor = aten::tensor(%28, %452, %453, %32)
+                  %455 : Tensor?[] = prim::ListConstruct(%451)
+                  %456 : Tensor = aten::index_put_(%450, %455, %454, %32) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:53:4
+                  %457 : bool = aten::lt(%326, %27) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:5:7
+                  %dim : int = prim::If(%457) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:5:4
+                    block0():
+                      %459 : int = aten::dim(%409) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:6:14
+                      %dim.4 : int = aten::add(%459, %326) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:6:14
+                      -> (%dim.4)
+                    block1():
+                      -> (%326)
+                  %461 : int = aten::dim(%450) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:7:7
+                  %462 : bool = aten::eq(%461, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:7:7
+                  %src.15 : Tensor = prim::If(%462) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:7:4
+                    block0():
+                      %464 : int = aten::__range_length(%27, %dim, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:8:8
+                      %src.14 : Tensor = prim::Loop(%464, %17, %450) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:8:8
+                        block0(%466 : int, %src.13 : Tensor):
+                          %src.4 : Tensor = aten::unsqueeze(%src.13, %27) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:9:18
+                          -> (%17, %src.4)
+                      -> (%src.14)
+                    block1():
+                      -> (%450)
+                  %469 : int = aten::dim(%src.15) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:19
+                  %470 : int = aten::dim(%409) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:30
+                  %471 : int = aten::__range_length(%469, %470, %28) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:4
+                  %src : Tensor = prim::Loop(%471, %17, %src.15) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:10:4
+                    block0(%473 : int, %src.16 : Tensor):
+                      %src.8 : Tensor = aten::unsqueeze(%src.16, %31) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:11:14
+                      -> (%17, %src.8)
+                  %count.6 : Tensor = aten::expand_as(%src, %409) # /opt/conda/lib/python3.8/site-packages/torch_scatter/utils.py:12:10
+                  %477 : bool = aten::is_floating_point(%409) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:55:7
+                   = prim::If(%477) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:55:4
+                    block0():
+                      %478 : Tensor = aten::div_(%409, %count.6) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:56:8
+                      -> ()
+                    block1():
+                      %479 : Tensor = aten::floor_divide_(%409, %count.6) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:58:8
+                      -> ()
+                  -> (%409)
+                block1():
+                  %480 : bool = aten::eq(%327, %21) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:158:9
+                  %481 : Tensor = prim::If(%480) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:158:4
+                    block0():
+                      %482 : Tensor, %483 : Tensor = torch_scatter::scatter_min(%out.2, %291, %326, %33, %290) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:66:11  
+                      %484 : NamedTuple(_0 : Tensor, _1 : Tensor) = prim::TupleConstruct(%482, %483)
+                      %485 : Tensor = prim::TupleIndex(%484, %27)
+                      -> (%485)
+                    block1():
+                      %486 : bool = aten::eq(%327, %20) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:160:9
+                      %487 : Tensor = prim::If(%486) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:160:4
+                        block0():
+                          %488 : Tensor, %489 : Tensor = torch_scatter::scatter_max(%out.2, %291, %326, %33, %290) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:73:11
+                          %490 : NamedTuple(_0 : Tensor, _1 : Tensor) = prim::TupleConstruct(%488, %489)
+                          %491 : Tensor = prim::TupleIndex(%490, %27)
+                          -> (%491)
+                        block1():
+                           = prim::RaiseException(%19) # /opt/conda/lib/python3.8/site-packages/torch_scatter/scatter.py:163:8
+                          -> (%328)
+                      -> (%487)
+                  -> (%481)
+              -> (%373)
+          -> (%370)
+      -> (%332)
+  %alpha.3 : Tensor? = prim::GetAttr[name="_alpha"](%4)
+  %493 : bool = aten::__isnot__(%alpha.3, %33) # /tmp/root_pyg/tmpxjp2mcgu.py:285:15
+   = prim::If(%493) # /tmp/root_pyg/tmpxjp2mcgu.py:285:8
+    block0():
+      -> ()
+    block1():
+       = prim::RaiseException(%34) # /tmp/root_pyg/tmpxjp2mcgu.py:285:8
+      -> ()
+   = prim::SetAttr[name="_alpha"](%4, %33)
+  %494 : bool = prim::GetAttr[name="concat"](%4)
+  %out.11 : Tensor = prim::If(%494) # /tmp/root_pyg/tmpxjp2mcgu.py:288:8
+    block0():
+      %496 : int = prim::GetAttr[name="heads"](%4)
+      %497 : int = prim::GetAttr[name="out_channels"](%4)
+      %498 : int = aten::mul(%496, %497) # /tmp/root_pyg/tmpxjp2mcgu.py:289:31
+      %499 : int[] = prim::ListConstruct(%31, %498)
+      %out.12 : Tensor = aten::view(%out.8, %499) # /tmp/root_pyg/tmpxjp2mcgu.py:289:18
+      -> (%out.12)
+    block1():
+      %501 : int[] = prim::ListConstruct(%28)
+      %out.10 : Tensor = aten::mean(%out.8, %501, %32, %33) # /tmp/root_pyg/tmpxjp2mcgu.py:291:18
+      -> (%out.10)
+  %503 : Tensor = prim::GetAttr[name="bias"](%4)
+  %h.1 : Tensor = aten::add_(%out.11, %503, %28) # /tmp/root_pyg/tmpxjp2mcgu.py:294:12
+  return (%h.1)
