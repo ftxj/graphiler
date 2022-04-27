@@ -87,6 +87,7 @@ def mpdfg_builder(msg_func, reduce_func, update_func=None, opt_level=2):
     print("Before Optimization")
     print(mpdfg.forward.graph)
     
+    print("Before Optimization Code")
     print(mpdfg.forward.code)
 
     optimizer(mpdfg.annotations, opt_level)
