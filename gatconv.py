@@ -18,8 +18,8 @@ out_feats = 8
 
 feat_drop = nn.Dropout(0)
 
-attn_l = nn.Parameter(th.FloatTensor(size=(1, num_heads, out_feats)))
-attn_r = nn.Parameter(th.FloatTensor(size=(1, num_heads, out_feats)))
+attn_l = nn.Parameter(torch.FloatTensor(size=(1, num_heads, out_feats)))
+attn_r = nn.Parameter(torch.FloatTensor(size=(1, num_heads, out_feats)))
 
 fc = nn.Linear(32, out_feats * num_heads, bias=False)
 
