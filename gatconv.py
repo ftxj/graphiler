@@ -30,11 +30,16 @@ if isinstance(feat, tuple):
     h_dst = feat_drop(feat[1])
 else:
     h_src = h_dst = feat_drop(feat)
-    print(h_src.type)
+    print('h_src : ', h_src.type)
     
-    print(h_dst.type)
+    print('h_dst : ',h_dst.type)
     
     feat_src = feat_dst = fc(h_src).view(-1, num_heads, out_feats)
+
+    print('feat_src : ',feat_src.type)
+
+    print('feat_dst : ',feat_dst.type)
+
     if graph.is_block:
         feat_dst = feat_src[:graph.number_of_dst_nodes()]
 
