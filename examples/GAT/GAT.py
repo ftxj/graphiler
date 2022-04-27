@@ -149,8 +149,8 @@ def profile(dataset, feat_dim, repeat=1000):
         net.eval()
         print(type(g.DGLGraph))
         with torch.no_grad():
-            compile_res = bench(net=net, net_params=(
-                g, features, False), tag="3-Graphiler", nvprof=False, repeat=repeat, memory=True, log=log)
+            # compile_res = bench(net=net, net_params=(
+            #     g, features, False), tag="3-Graphiler", nvprof=False, repeat=repeat, memory=True, log=log)
             
             res = bench(net=net, net_params=(g, features, False),
                         tag="0-DGL-UDF", nvprof=False, repeat=repeat, memory=True, log=log)
