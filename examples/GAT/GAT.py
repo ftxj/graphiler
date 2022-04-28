@@ -129,7 +129,7 @@ def profile(dataset, feat_dim, repeat=1000):
     log = init_log(["0-DGL-UDF", "1-DGL-primitives", "2-PyG-primitives",
                     "3-Graphiler"], ["time", "mem"])
     print("benchmarking on: " + dataset)
-    g, features = load_data(dataset, feat_dim, prepare=False)
+    g, features = load_data(dataset, feat_dim, prepare=True)
     features = features.to(device)
 
     @empty_cache
