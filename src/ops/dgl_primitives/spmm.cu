@@ -430,7 +430,7 @@ torch::Tensor SpMMEdge(torch::Tensor features, std::vector<int64_t> dims,
 
   std::cout << out << std::endl;
 
-  exit(-1)
+
   return out;
 }
 
