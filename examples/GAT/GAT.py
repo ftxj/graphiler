@@ -137,8 +137,8 @@ def profile(dataset, feat_dim, repeat=1000):
         g, _ = load_data(dataset, feat_dim, prepare=True)
         print(type(g.DGLGraph))
         g = g.to(device)
-        net = GAT(in_dim=feat_dim, hidden_dim=DEFAULT_DIM,
-                  out_dim=DEFAULT_DIM).to(device)
+        net = GAT(in_dim=feat_dim, hidden_dim=2,
+                  out_dim=2).to(device)
         net.eval()
         print(type(g.DGLGraph))
         with torch.no_grad():
