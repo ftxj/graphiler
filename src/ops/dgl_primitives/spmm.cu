@@ -12,6 +12,7 @@
 #include <torch/torch.h>
 #include <iostream>
 #include <cstdio>
+#include <cstdlib>
 namespace dgl {
 
 using namespace cuda;
@@ -428,6 +429,7 @@ torch::Tensor SpMMEdge(torch::Tensor features, std::vector<int64_t> dims,
   std::cout << "out:" << std::endl;
 
   std::cout << out << std::endl;
+
   exit(-1)
   return out;
 }
