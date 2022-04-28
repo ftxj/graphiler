@@ -162,7 +162,7 @@ def profile(dataset, feat_dim, repeat=1000):
         # net_pyg = GAT_PyG(in_dim=feat_dim, hidden_dim=DEFAULT_DIM,
                         #   out_dim=DEFAULT_DIM).to(device)
 
-        net_pyg = torch.jit.load("PyG_GAT.pt")
+        model = torch.jit.load("PyG_GAT.pt")
 
         # model = torch.jit.script(net_pyg) 
         print(model.inlined_graph)
@@ -171,9 +171,9 @@ def profile(dataset, feat_dim, repeat=1000):
 
         net_pyg.eval()
         with torch.no_grad():
-            bench(net=net_pyg, net_params=(features, adj),
+            bench(net=model, net_params=(features, adj),
                   tag="2-PyG-primitives", nvprof=False, repeat=repeat, memory=True, log=log)
-        del u, v, adj, net_pyg
+        del u, v, adj, model
 
     @empty_cache
     def run_dgl(g, features):
