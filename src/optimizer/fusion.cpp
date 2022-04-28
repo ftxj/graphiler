@@ -73,7 +73,8 @@ void fusion(std::shared_ptr<MPDFGAnnotation> &mpdfg) {
 
   std::string gspmm_u_mul_e_reduce = R"(
       graph(%ndata, %msg, %dglgraph, %dims, %keep, %type):
-        %res = my_ops::gspmm___source___mul_e_sum(%ndata, %msg, %dims, %keep, %type, %dglgraph)
+        %res = my_ops::gspmm___source___mul_e_sum(
+          %ndata, %msg, %dims, %keep, %type, %dglgraph)
         return (%res))";
 
   // template, ndata_ntype_scatter_op
@@ -84,7 +85,8 @@ void fusion(std::shared_ptr<MPDFGAnnotation> &mpdfg) {
   std::string ndata_ntype_scatter_bmm = R"(
       graph(%ndata, %ntype_weight, %dglgraph):
         %edata : Tensor = my_ops::__broadcast_node__(%ndata, %dglgraph)
-        %etype_weight : Tensor = my_ops::__broadcast_ntype__(%ntype_weight, %dglgraph)
+        %etype_weight : Tensor = 
+          my_ops::__broadcast_ntype__(%ntype_weight, %dglgraph)
         %res : Tensor = aten::bmm(%edata, %etype_weight)
         return (%res))";
 
@@ -101,7 +103,8 @@ void fusion(std::shared_ptr<MPDFGAnnotation> &mpdfg) {
   // broadcast compute
   std::string type_scatter_bmm = R"(
       graph(%edata, %etype_weight, %dglgraph):
-        %edata_weight : Tensor = my_ops::__broadcast__(%etype_weight, %dglgraph)
+        %edata_weight : Tensor = 
+          my_ops::__broadcast__(%etype_weight, %dglgraph)
         %res : Tensor = aten::bmm(%edata, %edata_weight)
         return (%res))";
 

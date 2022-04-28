@@ -77,6 +77,10 @@ void SpMMCsr(
         std::cout << std::endl;
         int m = num_rows, n = feat_len, k = num_cols;
         int nnz = csr_indices.size(0);
+
+        std::cout << "nnz dim:" << nnz << std::endl;
+
+
         DType alpha = 1., beta = 0.;
         cusparseHandle_t handle = at::cuda::getCurrentCUDASparseHandle();
         auto edge_weight = torch::ones(
@@ -96,19 +100,24 @@ void SpMMCsr(
         cusparseSpMatDescr_t matA;
         cusparseDnMatDescr_t matB, matC;
         std::cout << "MatA size = " << m << " x " << k << std::endl;
-        std::cout << "MatB size = " << k << " x " << n << std::endl;
         std::cout << "MatC size = " << m << " x " << n << std::endl;
         constexpr auto dtype = dgl::runtime::cuda_dtype<DType>::value;
         constexpr auto idtype = dgl::runtime::cusparse_idtype<IdType>::value;
+
         CUSPARSE_CALL(cusparseCreateCsr(
             &matA, m, k, nnz, csr_indptr.data_ptr<IdType>(),
             csr_indices.data_ptr<IdType>(), edge_weight.data_ptr<DType>(),
             idtype, idtype, CUSPARSE_INDEX_BASE_ZERO, dtype));
+
+
+        std::cout << "MatB size = " << k << " x " << n << std::endl;
         CUSPARSE_CALL(cusparseCreateDnMat(&matB, k, n, n,
                                           ufeat.data_ptr<DType>(), dtype,
                                           CUSPARSE_ORDER_ROW));
+
         CUSPARSE_CALL(cusparseCreateDnMat(&matC, m, n, n, out.data_ptr<DType>(),
                                           dtype, CUSPARSE_ORDER_ROW));
+
 
         auto transA = CUSPARSE_OPERATION_NON_TRANSPOSE;
         auto transB = CUSPARSE_OPERATION_NON_TRANSPOSE;
@@ -118,6 +127,7 @@ void SpMMCsr(
             CUSPARSE_SPMM_CSR_ALG2, &workspace_size));
         void *workspace;
         cudaMalloc(&workspace, workspace_size);
+
         CUSPARSE_CALL(cusparseSpMM(handle, transA, transB, &alpha, matA, matB,
                                    &beta, matC, dtype, CUSPARSE_SPMM_CSR_ALG2,
                                    workspace));
