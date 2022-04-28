@@ -132,6 +132,8 @@ def prepare_graph(g, ntype=None):
 
     print('edge index: ', reduce_edge_index)
 
+    exit()
+
     message_node_index = (g.out_edges(g.nodes(ntype))[
         1]).type(torch.IntTensor).cuda()
     message_edge_index = g.out_edges(
