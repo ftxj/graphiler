@@ -157,7 +157,6 @@ def prepare_graph(g, ntype=None):
     print('Coodst: ', Coodst.size())
 
 
-    exit()
 
     for i in range(1, len(reduce_node_pointer)):
         reduce_node_pointer[i] += reduce_node_pointer[i - 1]

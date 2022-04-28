@@ -99,11 +99,11 @@ void SpMMCsr(
 
         cusparseSpMatDescr_t matA;
         cusparseDnMatDescr_t matB, matC;
-        std::cout << "MatA size = " << m << " x " << k << std::endl;
-        std::cout << "MatC size = " << m << " x " << n << std::endl;
         constexpr auto dtype = dgl::runtime::cuda_dtype<DType>::value;
         constexpr auto idtype = dgl::runtime::cusparse_idtype<IdType>::value;
 
+
+        std::cout << "MatA size = " << m << " x " << k << std::endl;
         CUSPARSE_CALL(cusparseCreateCsr(
             &matA, m, k, nnz, csr_indptr.data_ptr<IdType>(),
             csr_indices.data_ptr<IdType>(), edge_weight.data_ptr<DType>(),
@@ -115,6 +115,7 @@ void SpMMCsr(
                                           ufeat.data_ptr<DType>(), dtype,
                                           CUSPARSE_ORDER_ROW));
 
+        std::cout << "MatC size = " << m << " x " << n << std::endl;
         CUSPARSE_CALL(cusparseCreateDnMat(&matC, m, n, n, out.data_ptr<DType>(),
                                           dtype, CUSPARSE_ORDER_ROW));
 
@@ -129,7 +130,7 @@ void SpMMCsr(
         cudaMalloc(&workspace, workspace_size);
 
         CUSPARSE_CALL(cusparseSpMM(handle, transA, transB, &alpha, matA, matB,
-                                   &beta, matC, dtype, CUSPARSE_SPMM_CSR_ALG2,
+                                   &beta, matC,  dtype, CUSPARSE_SPMM_CSR_ALG2,
                                    workspace));
         cudaFree(workspace);
         CUSPARSE_CALL(cusparseDestroySpMat(matA));
@@ -408,6 +409,8 @@ torch::Tensor SpMMEdge(torch::Tensor features, std::vector<int64_t> dims,
   dgl::aten::SpMMCsr<int32_t, 32>(
       "copy_lhs", "sum", graph->num_nodes, graph->num_nodes, graph->in_pointer,
       graph->in_edge_indices, empty, features, empty, out, empty_list);
+  std::cout << "out:" << std::endl;
+  std::cout << out << std::endl;
   return out;
 }
 
