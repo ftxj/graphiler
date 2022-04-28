@@ -159,13 +159,15 @@ def profile(dataset, feat_dim, repeat=1000):
         u, v = g.edges()
         adj = SparseTensor(row=u, col=v, sparse_sizes=(
             g.num_src_nodes(), g.num_dst_nodes())).to(device)
-        net_pyg = GAT_PyG(in_dim=feat_dim, hidden_dim=DEFAULT_DIM,
-                          out_dim=DEFAULT_DIM).to(device)
+        # net_pyg = GAT_PyG(in_dim=feat_dim, hidden_dim=DEFAULT_DIM,
+                        #   out_dim=DEFAULT_DIM).to(device)
 
-        model = torch.jit.script(net_pyg) 
+        net_pyg = torch.jit.load("PyG_GAT.pt")
+
+        # model = torch.jit.script(net_pyg) 
         print(model.inlined_graph)
-        model.save("PyG_GAT.pt")
-        exit()
+        # model.save("PyG_GAT.pt")
+        # exit()
 
         net_pyg.eval()
         with torch.no_grad():
