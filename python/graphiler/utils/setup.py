@@ -128,11 +128,7 @@ def prepare_graph(g, ntype=None):
         g.nodes(ntype), form='eid').type(torch.IntTensor).cuda()
 
 
-    print('node index: ', reduce_node_index)
 
-    print('edge index: ', reduce_edge_index)
-
-    exit()
 
     message_node_index = (g.out_edges(g.nodes(ntype))[
         1]).type(torch.IntTensor).cuda()
@@ -147,6 +143,17 @@ def prepare_graph(g, ntype=None):
 
     reduce_node_pointer = [0] + g.in_degrees(g.nodes(ntype)).tolist()
     message_node_pointer = [0] + g.out_degrees(g.nodes(ntype)).tolist()
+
+
+    print('node index: ', reduce_node_index)
+
+    print('edge index: ', reduce_edge_index)
+
+    print('Coosrc: ', Coosrc)
+
+    print('Coodst: ', Coodst)
+
+    exit()
 
     for i in range(1, len(reduce_node_pointer)):
         reduce_node_pointer[i] += reduce_node_pointer[i - 1]
