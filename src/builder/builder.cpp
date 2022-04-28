@@ -44,7 +44,7 @@ operator_lowering(const std::string &n_kind,
 
 void print_graph(Node *node, std::ostream &oss, int id) {
     std::string n_kind = n->kind().toQualString();
-    oss << n_kind + std::to_string(id) << "[shape=circle]";
+    oss << n_kind + std::to_string(id) << "[shape=circle]" << std::endl;
 }
 
 void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
