@@ -100,4 +100,5 @@ def mpdfg_builder(msg_func, reduce_func, update_func=None, opt_level=2):
     print("Afrer Optimization")
     print("MPDFG:\n", mpdfg.forward.graph)
 
+    
     return mpdfg

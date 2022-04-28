@@ -67,6 +67,8 @@ print("TorchScript Code:")
 
 print(mpdfg.forward.code)
 
+exit()
+
 # mpdfg_compile = mpdfg_builder(message_func, reduce_func, opt_level=2)
 
 # mpdfg_plus_reorder = mpdfg_builder(message_func, reduce_func, opt_level=1)
