@@ -169,7 +169,7 @@ def profile(dataset, feat_dim, repeat=1000):
         # model.save("PyG_GAT.pt")
         # exit()
 
-        net_pyg.eval()
+        model.eval()
         with torch.no_grad():
             bench(net=model, net_params=(features, adj),
                   tag="2-PyG-primitives", nvprof=False, repeat=repeat, memory=True, log=log)
