@@ -395,6 +395,22 @@ torch::Tensor SpMMEdge(torch::Tensor features, std::vector<int64_t> dims,
                        bool keep_dim, at::optional<at::ScalarType> dtype,
                        const c10::intrusive_ptr<DGLGraph> &graph) {
   int feat_dim = features.dim() == 1 ? 1 : features.size(1);
+
+  std::cout << "feature:" << std::endl;
+  
+  std::cout << features << std::endl;
+
+
+
+  std::cout << "in_edge_indices:" << std::endl;
+  
+  std::cout << graph->in_edge_indices << std::endl;
+
+
+  std::cout << "in_pointer:" << std::endl;
+  
+  std::cout << graph->in_pointer << std::endl;
+
   std::cout << "SpMMEdge feature size:";
   for(int i = 0; i < features.dim(); ++i) {
     std::cout << features.size(i) << ", ";
@@ -410,6 +426,7 @@ torch::Tensor SpMMEdge(torch::Tensor features, std::vector<int64_t> dims,
       "copy_lhs", "sum", graph->num_nodes, graph->num_nodes, graph->in_pointer,
       graph->in_edge_indices, empty, features, empty, out, empty_list);
   std::cout << "out:" << std::endl;
+
   std::cout << out << std::endl;
   return out;
 }
