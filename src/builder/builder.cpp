@@ -46,7 +46,7 @@ void print_graph(Block *in_block) {
   int node_id  = 0;
   for (auto n : in_block->nodes()) {
     std::string n_kind = n->kind().toQualString();
-    oss << n_kind + std::to_string(node_id) << "[shape=circle]" << std::endl;
+    std::cout << n_kind + std::to_string(node_id) << "[shape=circle]" << std::endl;
     node_id++;
   }
 }
