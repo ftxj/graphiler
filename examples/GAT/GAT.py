@@ -67,7 +67,7 @@ print("TorchScript Code:")
 
 print(mpdfg.forward.code)
 
-exit()
+# exit()
 
 # mpdfg_compile = mpdfg_builder(message_func, reduce_func, opt_level=2)
 
@@ -164,6 +164,7 @@ def profile(dataset, feat_dim, repeat=1000):
 
         model = torch.jit.script(net_pyg) 
         print(model.inlined_graph)
+        model.save("PyG_GAT.pt")
         exit()
 
         net_pyg.eval()
@@ -184,8 +185,8 @@ def profile(dataset, feat_dim, repeat=1000):
                   tag="1-DGL-primitives", nvprof=False, repeat=repeat, memory=True, log=log)
         del g, net_dgl
 
-    run_baseline_graphiler(g, features)
-    # run_pyg(g, features)
+    # run_baseline_graphiler(g, features)
+    run_pyg(g, features)
     # run_dgl(g, features)
 
     return log
