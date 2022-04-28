@@ -42,6 +42,11 @@ operator_lowering(const std::string &n_kind,
   return "";
 }
 
+void print_graph(Node *node, std::ostream &oss, int id) {
+    std::string n_kind = n->kind().toQualString();
+    oss << n_kind + std::to_string(id) << "[shape=circle]";
+}
+
 void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
                  c10::ArrayRef<Value *> mpdfg_params, Block *in_block,
                  Stage stage) {
@@ -64,13 +69,13 @@ void parse_stage(std::shared_ptr<MPDFGAnnotation> &mpdfg,
   // std::cout << "mpdfg_block final node: ";
   // if(stage != Stage::Creation)
   // mpdfg_final_node->dump();
-
+  int node_id  = 0;
   for (auto n : in_block->nodes()) {
     // if(stage != Stage::Creation)
     // std::cout << "\nNode: ";
     // if(stage != Stage::Creation)
     // n->dump();
-
+    print_graph(n, std::cout, node_id++);
     std::string n_kind = n->kind().toQualString();
     // if(stage != Stage::Creation)
     // std::cout << "Node Kind = " << n_kind << std::endl;
